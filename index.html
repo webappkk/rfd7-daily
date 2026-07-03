@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Meta Tags -->
-    <title>ปฏิทินการจองห้องประชุม</title>
+    <title>ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System)</title>
     <meta name="description" content="ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System) สำหรับสำนักจัดการทรัพยากรป่าไม้ที่ 7 (ขอนแก่น)">
     <meta name="keywords" content="ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System), ป่าไม้, ทรัพยากรป่าไม้">
     <meta name="author" content="สำนักจัดการทรัพยากรป่าไม้ที่ 7">
@@ -15,7 +15,7 @@
     <meta property="og:title" content="ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System)">
     <meta property="og:description" content="ระบบรายงานสำหรับสำนักจัดการทรัพยากรป่าไม้ที่ 7">
 
-<!-- 3D Calendar Favicon -->
+<!-- 📅 Daily Attendance Favicon: ปฏิทินรายวัน + นาฬิกาบันทึกเวลา -->
 <link rel="icon" href="data:image/svg+xml,
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
   <defs>
@@ -23,37 +23,49 @@
       <stop offset='0%' stop-color='%23ff6b6b'/>
       <stop offset='100%' stop-color='%23ffb347'/>
     </linearGradient>
-
     <linearGradient id='g2' x1='0' y1='0' x2='0' y2='1'>
       <stop offset='0%' stop-color='%23ffffff'/>
-      <stop offset='100%' stop-color='%23dbeafe'/>
+      <stop offset='100%' stop-color='%23fff7ed'/>
     </linearGradient>
-
     <filter id='shadow' x='-20%' y='-20%' width='140%' height='140%'>
       <feDropShadow dx='0' dy='4' stdDeviation='3' flood-color='%23000000' flood-opacity='0.35'/>
     </filter>
   </defs>
 
-  <!-- Body -->
+  <!-- Calendar body -->
   <rect x='8' y='12' width='48' height='44' rx='10'
         fill='url(%23g2)' filter='url(%23shadow)'/>
 
-  <!-- Header -->
+  <!-- Calendar header (gradient strip) -->
   <rect x='8' y='12' width='48' height='14' rx='10'
         fill='url(%23g1)'/>
+  <rect x='8' y='18' width='48' height='8'
+        fill='url(%23g1)'/>
 
-  <!-- Rings -->
-  <rect x='18' y='6' width='6' height='12' rx='3' fill='%23444'/>
-  <rect x='40' y='6' width='6' height='12' rx='3' fill='%23444'/>
+  <!-- Binding rings -->
+  <rect x='18' y='6' width='6' height='12' rx='3' fill='%23b91c1c'/>
+  <rect x='40' y='6' width='6' height='12' rx='3' fill='%23b91c1c'/>
 
-  <!-- Date squares -->
-  <rect x='18' y='32' width='8' height='8' rx='2' fill='%2360a5fa'/>
-  <rect x='30' y='32' width='8' height='8' rx='2' fill='%23f87171'/>
-  <rect x='42' y='32' width='8' height='8' rx='2' fill='%23facc15'/>
+  <!-- Clock face (white circle) -->
+  <circle cx='32' cy='38' r='13' fill='white' opacity='0.95'/>
+  <circle cx='32' cy='38' r='11.5' fill='none' stroke='%23fca5a5' stroke-width='1.2'/>
 
-  <rect x='18' y='44' width='8' height='8' rx='2' fill='%2334d399'/>
-  <rect x='30' y='44' width='8' height='8' rx='2' fill='%23a78bfa'/>
-  <rect x='42' y='44' width='8' height='8' rx='2' fill='%23fb923c'/>
+  <!-- Hour markers at 12 / 3 / 6 / 9 -->
+  <line x1='32'   y1='27.5' x2='32'   y2='30'   stroke='%23ef4444' stroke-width='2'/>
+  <line x1='42.5' y1='38'   x2='40.2' y2='38'   stroke='%23ef4444' stroke-width='2'/>
+  <line x1='32'   y1='48.5' x2='32'   y2='46.2' stroke='%23ef4444' stroke-width='2'/>
+  <line x1='21.5' y1='38'   x2='23.8' y2='38'   stroke='%23ef4444' stroke-width='2'/>
+
+  <!-- Minute hand → 12 (pointing up) -->
+  <line x1='32' y1='38' x2='32' y2='28'
+        stroke='%23ff6b6b' stroke-width='2' stroke-linecap='round'/>
+
+  <!-- Hour hand → 9 (pointing left) -->
+  <line x1='32' y1='38' x2='24' y2='38'
+        stroke='%23991b1b' stroke-width='2.5' stroke-linecap='round'/>
+
+  <!-- Center pivot -->
+  <circle cx='32' cy='38' r='2.5' fill='%23991b1b'/>
 </svg>">
 
 <meta name="theme-color" content="#ff6b6b">
