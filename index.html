@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>ปฏิทินการจองห้องประชุม</title>
+    <meta name="description" content="ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System) สำหรับสำนักจัดการทรัพยากรป่าไม้ที่ 7 (ขอนแก่น)">
+    <meta name="keywords" content="ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System), ป่าไม้, ทรัพยากรป่าไม้">
+    <meta name="author" content="สำนักจัดการทรัพยากรป่าไม้ที่ 7">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System)">
+    <meta property="og:description" content="ระบบรายงานสำหรับสำนักจัดการทรัพยากรป่าไม้ที่ 7">
+
+<!-- 3D Calendar Favicon -->
+<link rel="icon" href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
+  <defs>
+    <linearGradient id='g1' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0%' stop-color='%23ff6b6b'/>
+      <stop offset='100%' stop-color='%23ffb347'/>
+    </linearGradient>
+
+    <linearGradient id='g2' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0%' stop-color='%23ffffff'/>
+      <stop offset='100%' stop-color='%23dbeafe'/>
+    </linearGradient>
+
+    <filter id='shadow' x='-20%' y='-20%' width='140%' height='140%'>
+      <feDropShadow dx='0' dy='4' stdDeviation='3' flood-color='%23000000' flood-opacity='0.35'/>
+    </filter>
+  </defs>
+
+  <!-- Body -->
+  <rect x='8' y='12' width='48' height='44' rx='10'
+        fill='url(%23g2)' filter='url(%23shadow)'/>
+
+  <!-- Header -->
+  <rect x='8' y='12' width='48' height='14' rx='10'
+        fill='url(%23g1)'/>
+
+  <!-- Rings -->
+  <rect x='18' y='6' width='6' height='12' rx='3' fill='%23444'/>
+  <rect x='40' y='6' width='6' height='12' rx='3' fill='%23444'/>
+
+  <!-- Date squares -->
+  <rect x='18' y='32' width='8' height='8' rx='2' fill='%2360a5fa'/>
+  <rect x='30' y='32' width='8' height='8' rx='2' fill='%23f87171'/>
+  <rect x='42' y='32' width='8' height='8' rx='2' fill='%23facc15'/>
+
+  <rect x='18' y='44' width='8' height='8' rx='2' fill='%2334d399'/>
+  <rect x='30' y='44' width='8' height='8' rx='2' fill='%23a78bfa'/>
+  <rect x='42' y='44' width='8' height='8' rx='2' fill='%23fb923c'/>
+</svg>">
+
+<meta name="theme-color" content="#ff6b6b">
+
+    <style>
+        /* ✅ รีเซ็ตทุก margin/padding และกำหนด height เต็มจอ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* ป้องกัน scrollbar ซ้อน */
+        }
+
+        /* ✅ iframe เต็มจอสมบูรณ์ */
+        #main-frame {
+            position: fixed;  /* fixed ดีกว่า absolute — ไม่ขยับตาม scroll */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background: #f3f4f6; /* สีพื้นหลังระหว่างรอโหลด */
+        }
+    </style>
+</head>
+<body>
+    <!-- 💡 เพิ่ม allow และ sandbox เพื่อปลดล็อกสิทธิ์ให้ Google Apps Script ทำงานในกรอบได้อย่างสมบูรณ์ -->
+    <iframe
+        id="main-frame"
+        allowfullscreen
+        allow="clipboard-read; clipboard-write"
+        sandbox="allow-top-navigation allow-top-navigation-by-user-activation allow-scripts allow-same-origin allow-forms allow-popups"
+        loading="eager"
+        title="ระบบ ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System)"
+    ></iframe>
+
+    <script>
+        // 💡 ดึงพารามิเตอร์จาก URL ของ GitHub (ถ้ามี) ไปต่อท้าย Google Apps Script
+        // ช่วยให้ถ้ามีคนเข้าโดเมน Github พร้อม ?id=xxx ระบบจะส่งต่อไปได้ถูกต้อง
+        const urlParams = window.location.search;
+        const gasUrl = "https://script.google.com/macros/s/AKfycbynOxqAsxpnJgZ7gfngfdbwtI7Uw16N3Tt1He8rvxgLdSgj_cUv8hfffi1jIFUyOuot6w/exec" + urlParams;
+        
+        document.getElementById("main-frame").src = gasUrl;
+    </script>
+</body>
+</html>
