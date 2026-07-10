@@ -4,117 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO Meta Tags -->
+    <!-- SEO -->
     <title>ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System)</title>
-    <meta name="description" content="ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System) สำหรับสำนักจัดการทรัพยากรป่าไม้ที่ 7 (ขอนแก่น)">
-    <meta name="keywords" content="ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System), ป่าไม้, ทรัพยากรป่าไม้">
-    <meta name="author" content="สำนักจัดการทรัพยากรป่าไม้ที่ 7">
+
+    <meta name="description"
+        content="ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System) สำหรับสำนักจัดการทรัพยากรป่าไม้ที่ 7 (ขอนแก่น)">
+    <meta name="keywords"
+        content="ระบบบันทึกเวลาทำงานรายวัน, Daily Attendance System, ป่าไม้">
+    <meta name="author"
+        content="สำนักจัดการทรัพยากรป่าไม้ที่ 7">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System)">
-    <meta property="og:description" content="ระบบรายงานสำหรับสำนักจัดการทรัพยากรป่าไม้ที่ 7">
+    <meta property="og:title"
+        content="ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System)">
+    <meta property="og:description"
+        content="ระบบบันทึกเวลาทำงานรายวัน สำหรับสำนักจัดการทรัพยากรป่าไม้ที่ 7">
 
-<!-- 📅 Daily Attendance Favicon: ปฏิทินรายวัน + นาฬิกาบันทึกเวลา -->
-<link rel="icon" href="data:image/svg+xml,
+    <!-- Theme -->
+    <meta name="theme-color" content="#ff6b6b">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
-  <defs>
-    <linearGradient id='g1' x1='0' y1='0' x2='1' y2='1'>
-      <stop offset='0%' stop-color='%23ff6b6b'/>
-      <stop offset='100%' stop-color='%23ffb347'/>
-    </linearGradient>
-    <linearGradient id='g2' x1='0' y1='0' x2='0' y2='1'>
-      <stop offset='0%' stop-color='%23ffffff'/>
-      <stop offset='100%' stop-color='%23fff7ed'/>
-    </linearGradient>
-    <filter id='shadow' x='-20%' y='-20%' width='140%' height='140%'>
-      <feDropShadow dx='0' dy='4' stdDeviation='3' flood-color='%23000000' flood-opacity='0.35'/>
-    </filter>
-  </defs>
+<defs>
+<linearGradient id='g1' x1='0' y1='0' x2='1' y2='1'>
+<stop offset='0%' stop-color='%23ff6b6b'/>
+<stop offset='100%' stop-color='%23ffb347'/>
+</linearGradient>
+<linearGradient id='g2' x1='0' y1='0' x2='0' y2='1'>
+<stop offset='0%' stop-color='%23ffffff'/>
+<stop offset='100%' stop-color='%23fff7ed'/>
+</linearGradient>
+</defs>
 
-  <!-- Calendar body -->
-  <rect x='8' y='12' width='48' height='44' rx='10'
-        fill='url(%23g2)' filter='url(%23shadow)'/>
+<rect x='8' y='12' width='48' height='44' rx='10' fill='url(%23g2)'/>
+<rect x='8' y='12' width='48' height='14' rx='10' fill='url(%23g1)'/>
+<rect x='18' y='6' width='6' height='12' rx='3' fill='%23b91c1c'/>
+<rect x='40' y='6' width='6' height='12' rx='3' fill='%23b91c1c'/>
 
-  <!-- Calendar header (gradient strip) -->
-  <rect x='8' y='12' width='48' height='14' rx='10'
-        fill='url(%23g1)'/>
-  <rect x='8' y='18' width='48' height='8'
-        fill='url(%23g1)'/>
+<circle cx='32' cy='38' r='13' fill='white'/>
+<circle cx='32' cy='38' r='2.5' fill='%23991b1b'/>
 
-  <!-- Binding rings -->
-  <rect x='18' y='6' width='6' height='12' rx='3' fill='%23b91c1c'/>
-  <rect x='40' y='6' width='6' height='12' rx='3' fill='%23b91c1c'/>
+<line x1='32' y1='38' x2='32' y2='28'
+stroke='%23ff6b6b'
+stroke-width='2'
+stroke-linecap='round'/>
 
-  <!-- Clock face (white circle) -->
-  <circle cx='32' cy='38' r='13' fill='white' opacity='0.95'/>
-  <circle cx='32' cy='38' r='11.5' fill='none' stroke='%23fca5a5' stroke-width='1.2'/>
+<line x1='32' y1='38' x2='24' y2='38'
+stroke='%23991b1b'
+stroke-width='2.5'
+stroke-linecap='round'/>
 
-  <!-- Hour markers at 12 / 3 / 6 / 9 -->
-  <line x1='32'   y1='27.5' x2='32'   y2='30'   stroke='%23ef4444' stroke-width='2'/>
-  <line x1='42.5' y1='38'   x2='40.2' y2='38'   stroke='%23ef4444' stroke-width='2'/>
-  <line x1='32'   y1='48.5' x2='32'   y2='46.2' stroke='%23ef4444' stroke-width='2'/>
-  <line x1='21.5' y1='38'   x2='23.8' y2='38'   stroke='%23ef4444' stroke-width='2'/>
-
-  <!-- Minute hand → 12 (pointing up) -->
-  <line x1='32' y1='38' x2='32' y2='28'
-        stroke='%23ff6b6b' stroke-width='2' stroke-linecap='round'/>
-
-  <!-- Hour hand → 9 (pointing left) -->
-  <line x1='32' y1='38' x2='24' y2='38'
-        stroke='%23991b1b' stroke-width='2.5' stroke-linecap='round'/>
-
-  <!-- Center pivot -->
-  <circle cx='32' cy='38' r='2.5' fill='%23991b1b'/>
 </svg>">
 
-<meta name="theme-color" content="#ff6b6b">
-
     <style>
-        /* ✅ รีเซ็ตทุก margin/padding และกำหนด height เต็มจอ */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden; /* ป้องกัน scrollbar ซ้อน */
+        html,body{
+            width:100%;
+            height:100%;
+            font-family:Tahoma,sans-serif;
+            background:#f5f5f5;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
         }
 
-        /* ✅ iframe เต็มจอสมบูรณ์ */
-        #main-frame {
-            position: fixed;  /* fixed ดีกว่า absolute — ไม่ขยับตาม scroll */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-            background: #f3f4f6; /* สีพื้นหลังระหว่างรอโหลด */
+        .loader{
+            width:60px;
+            height:60px;
+            border:6px solid #eee;
+            border-top:6px solid #ff6b6b;
+            border-radius:50%;
+            animation:spin 1s linear infinite;
+            margin-bottom:20px;
         }
+
+        @keyframes spin{
+            from{transform:rotate(0deg);}
+            to{transform:rotate(360deg);}
+        }
+
+        h2{
+            color:#444;
+            font-size:22px;
+            margin-bottom:10px;
+        }
+
+        p{
+            color:#777;
+            font-size:15px;
+        }
+
     </style>
-</head>
-<body>
-    <!-- 💡 เพิ่ม allow และ sandbox เพื่อปลดล็อกสิทธิ์ให้ Google Apps Script ทำงานในกรอบได้อย่างสมบูรณ์ -->
-    <iframe
-        id="main-frame"
-        allowfullscreen
-        allow="clipboard-read; clipboard-write"
-        sandbox="allow-top-navigation allow-top-navigation-by-user-activation allow-scripts allow-same-origin allow-forms allow-popups"
-        loading="eager"
-        title="ระบบ ระบบบันทึกเวลาทำงานรายวัน (Daily Attendance System)"
-    ></iframe>
 
-    <script>
-        // 💡 ดึงพารามิเตอร์จาก URL ของ GitHub (ถ้ามี) ไปต่อท้าย Google Apps Script
-        // ช่วยให้ถ้ามีคนเข้าโดเมน Github พร้อม ?id=xxx ระบบจะส่งต่อไปได้ถูกต้อง
-        const urlParams = window.location.search;
-        const gasUrl = "https://script.google.com/macros/s/AKfycbzJoA7oy04rj6xK8F7EwqwHxZFb387xIR6RxjcDc4EJw-zqWguJAs3YKk1q5cUQIlSV/exec" + urlParams;
-        
-        document.getElementById("main-frame").src = gasUrl;
-    </script>
+</head>
+
+<body>
+
+<div class="loader"></div>
+
+<h2>กำลังเข้าสู่ระบบ...</h2>
+
+<p>กรุณารอสักครู่</p>
+
+<script>
+
+const GAS_URL =
+"https://script.google.com/macros/s/AKfycbzJoA7oy04rj6xK8F7EwqwHxZFb387xIR6RxjcDc4EJw-zqWguJAs3YKk1q5cUQIlSV/exec";
+
+const query = window.location.search;
+
+setTimeout(() => {
+
+    window.location.replace(GAS_URL + query);
+
+},300);
+
+</script>
+
 </body>
 </html>
