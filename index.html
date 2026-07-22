@@ -728,6 +728,34 @@
       }
     }
 
+    @media (max-width: 991.98px) {
+      .cell-popover-card {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 1050 !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
+        animation: popoverMobileFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      .cell-popover-card .popover-arrow {
+        display: none !important;
+      }
+    }
+
+    @keyframes popoverMobileFadeIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
     .summary-card {
       border: 1px solid rgba(0, 0, 0, 0.04);
       border-radius: 16px;
