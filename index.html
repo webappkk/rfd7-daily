@@ -2836,11 +2836,11 @@
       var data = {
         empType: document.getElementById('emp-mgt-type').value,
         rowIndex: document.getElementById('e-rowindex').value || null,
-        seq: document.getElementById('e-seq').value,
-        firstName: document.getElementById('e-fn').value,
-        lastName: document.getElementById('e-ln').value,
-        position: document.getElementById('e-pos').value,
-        section: document.getElementById('e-sec').value
+        seq: String(document.getElementById('e-seq').value).trim(),
+        firstName: String(document.getElementById('e-fn').value).trim(),
+        lastName: String(document.getElementById('e-ln').value).trim(),
+        position: String(document.getElementById('e-pos').value).trim(),
+        section: String(document.getElementById('e-sec').value).trim()
       };
 
       if (!data.firstName) return Swal.fire('แจ้งเตือน', 'กรุณากรอกชื่อ', 'warning');
@@ -3027,12 +3027,12 @@
       });
     }
     
-    function filterDailyTable() { filterTableRows('search-daily', '#tab-daily'); }
-    function filterDrTable() { filterTableRows('search-dr', '#tab-daily-report'); }
-    function filterMonthTable() { filterTableRows('search-month', '#tab-month'); }
-    function filterYearTable() { filterTableRows('search-year', '#tab-year'); }
-    function filterEmpTable() { filterTableRows('search-emp', '#tab-employee'); }
-    function filterUserTable() { filterTableRows('search-user', '#tab-admin'); }
+    function filterDailyTable() { filterTableRows('daily-search', '#tab-daily'); }
+    function filterDrTable() { filterTableRows('dr-search', '#tab-daily-report'); }
+    function filterMonthTable() { filterTableRows('month-search', '#tab-month'); }
+    function filterYearTable() { filterTableRows('year-search', '#tab-year'); }
+    function filterEmpTable() { filterTableRows('emp-search', '#tab-employee'); }
+    function filterUserTable() { filterTableRows('admin-search', '#tab-admin'); }
 
     var activeHolidays = [];
     var calCurrentDate = new Date();
