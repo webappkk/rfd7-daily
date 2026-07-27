@@ -740,6 +740,7 @@
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
         animation: popoverMobileFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
       }
+
       .cell-popover-card .popover-arrow {
         display: none !important;
       }
@@ -750,6 +751,7 @@
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.95);
       }
+
       to {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
@@ -1384,8 +1386,8 @@
 
     /* ===== SEARCH BOX ===== */
     .search-box {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: 10px;
       color: #fff;
       padding: 5px 12px;
@@ -1393,24 +1395,38 @@
       font-family: inherit;
       outline: none;
       min-width: 170px;
-      transition: all 0.28s cubic-bezier(0.4,0,0.2,1);
+      transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .search-box::placeholder { color: rgba(255,255,255,0.55); }
-    .search-box:focus { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.45); min-width: 210px; }
+
+    .search-box::placeholder {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .search-box:focus {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.45);
+      min-width: 210px;
+    }
+
     .search-box-light {
-      border: 1.5px solid rgba(10,64,35,0.15);
+      border: 1.5px solid rgba(10, 64, 35, 0.15);
       border-radius: 10px;
       padding: 5px 12px;
       font-size: 13px;
       font-family: inherit;
       outline: none;
       background: #fff;
-      transition: all 0.28s cubic-bezier(0.4,0,0.2,1);
+      transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .search-box-light:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(10,64,35,0.08); }
+
+    .search-box-light:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(10, 64, 35, 0.08);
+    }
+
     .user-order-btn {
-      background: rgba(10,64,35,0.07);
-      border: 1.5px solid rgba(10,64,35,0.18);
+      background: rgba(10, 64, 35, 0.07);
+      border: 1.5px solid rgba(10, 64, 35, 0.18);
       color: var(--primary);
       border-radius: 6px;
       width: 28px;
@@ -1425,8 +1441,16 @@
       vertical-align: middle;
       line-height: 1;
     }
-    .user-order-btn:hover:not([disabled]) { background: rgba(10,64,35,0.15); transform: scale(1.1); }
-    .user-order-btn[disabled] { opacity: 0.25; cursor: default; }
+
+    .user-order-btn:hover:not([disabled]) {
+      background: rgba(10, 64, 35, 0.15);
+      transform: scale(1.1);
+    }
+
+    .user-order-btn[disabled] {
+      opacity: 0.25;
+      cursor: default;
+    }
   </style>
 </head>
 
@@ -1492,6 +1516,8 @@
             class="material-icons">calendar_month</span><span>สรุปรายเดือน</span></a>
         <a class="menu-item" href="#tab-year" onclick="tabClicked('year')"><span
             class="material-icons">bar_chart</span><span>สรุปรายปี</span></a>
+        <a class="menu-item" id="tab-forms-li" href="#tab-forms" onclick="tabClicked('forms')"><span
+            class="material-icons">folder_shared</span><span>แบบฟอร์มและเอกสาร</span></a>
         <a class="menu-item" id="tab-employee-li" style="display:none;" href="#tab-employee"
           onclick="tabClicked('employee')"><span class="material-icons">people</span><span>จัดการบุคลากร</span></a>
         <a class="menu-item" id="tab-admin-li" style="display:none;" href="#tab-admin"
@@ -1694,7 +1720,8 @@
             </div>
             <div class="card border-0">
               <div class="card-header-green">
-                <div><span id="d-table-title">ตารางบันทึกรายวัน</span><span class="badge bg-light text-dark ms-2" id="d-row-count"></span></div>
+                <div><span id="d-table-title">ตารางบันทึกรายวัน</span><span class="badge bg-light text-dark ms-2"
+                    id="d-row-count"></span></div>
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                   <div class="d-none d-md-flex gap-1" style="font-size: 11px; font-weight: 500;">
                     <span class="badge" style="background:var(--color-W);color:var(--color-W-text)">W=ทำงาน</span>
@@ -1705,7 +1732,8 @@
                     <span class="badge" style="background:var(--color-AB);color:var(--color-AB-text)">AB=ขาด</span>
                     <span class="badge" style="background:var(--color-LT);color:var(--color-LT-text)">LT=มาสาย</span>
                   </div>
-                  <input type="text" class="search-box" id="daily-search" placeholder="ค้นหาชื่อ / ส่วนงาน..." oninput="filterDailyTable(this.value)" style="max-width:220px;">
+                  <input type="text" class="search-box" id="daily-search" placeholder="ค้นหาชื่อ / ส่วนงาน..."
+                    oninput="filterDailyTable(this.value)" style="max-width:220px;">
                 </div>
               </div>
               <div class="table-wrap">
@@ -1727,7 +1755,8 @@
                 <div class="col-auto"><button class="btn btn-outline-success btn-sm"
                     onclick="exportDailyReportToExcel()"><span class="material-icons align-middle me-1"
                       style="font-size:16px;">download</span>ออก Excel</button></div>
-                <div class="col-auto ms-auto"><input type="text" class="search-box-light" id="dr-search" placeholder="ค้นหาชื่อ..." oninput="filterDrTable(this.value)" style="width:180px;"></div>
+                <div class="col-auto ms-auto"><input type="text" class="search-box-light" id="dr-search"
+                    placeholder="ค้นหาชื่อ..." oninput="filterDrTable(this.value)" style="width:180px;"></div>
               </div>
             </div>
             <div class="emp-type-tab-bar">
@@ -1760,7 +1789,8 @@
                   <button class="btn btn-outline-success btn-sm" onclick="exportMonthToExcel()"><span
                       class="material-icons align-middle me-1" style="font-size:16px;">download</span>ออก Excel</button>
                 </div>
-                <div class="col-auto mt-3"><input type="text" class="search-box-light" id="month-search" placeholder="ค้นหาชื่อ..." oninput="filterMonthTable(this.value)" style="width:180px;"></div>
+                <div class="col-auto mt-3"><input type="text" class="search-box-light" id="month-search"
+                    placeholder="ค้นหาชื่อ..." oninput="filterMonthTable(this.value)" style="width:180px;"></div>
               </div>
             </div>
             <div class="emp-type-tab-bar">
@@ -1796,7 +1826,8 @@
                   <button class="btn btn-success btn-sm" onclick="exportYearToExcel()"><span
                       class="material-icons align-middle me-1" style="font-size:16px;">download</span>ออก Excel</button>
                 </div>
-                <div class="col-auto mt-3"><input type="text" class="search-box-light" id="year-search" placeholder="ค้นหาชื่อ..." oninput="filterYearTable(this.value)" style="width:180px;"></div>
+                <div class="col-auto mt-3"><input type="text" class="search-box-light" id="year-search"
+                    placeholder="ค้นหาชื่อ..." oninput="filterYearTable(this.value)" style="width:180px;"></div>
               </div>
             </div>
             <div id="year-summary-area"></div>
@@ -1816,7 +1847,8 @@
                   <button class="btn btn-success btn-sm" onclick="openEmpModal(null)"><span
                       class="material-icons align-middle me-1"
                       style="font-size:16px;">person_add</span>เพิ่มบุคลากร</button>
-                  <input type="text" class="search-box-light" id="emp-search" placeholder="ค้นหาชื่อ / ส่วนงาน..." oninput="filterEmpTable(this.value)" style="width:200px;">
+                  <input type="text" class="search-box-light" id="emp-search" placeholder="ค้นหาชื่อ / ส่วนงาน..."
+                    oninput="filterEmpTable(this.value)" style="width:200px;">
                 </div>
               </div>
             </div>
@@ -1848,10 +1880,14 @@
               <div class="card-header-green">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                   <span>จัดการบัญชีผู้ใช้งานระบบ</span>
-                  <button class="btn btn-sm btn-light fw-bold text-success" onclick="openUserModal(null)"><span class="material-icons me-1" style="font-size:16px;">person_add</span>เพิ่มผู้ใช้ใหม่</button>
-                  <button class="btn btn-sm fw-bold" onclick="saveUserOrder()" style="background:#f59e0b;color:#fff;"><span class="material-icons me-1" style="font-size:14px;vertical-align:middle;">save</span>บันทึกลำดับ</button>
+                  <button class="btn btn-sm btn-light fw-bold text-success" onclick="openUserModal(null)"><span
+                      class="material-icons me-1" style="font-size:16px;">person_add</span>เพิ่มผู้ใช้ใหม่</button>
+                  <button class="btn btn-sm fw-bold" onclick="saveUserOrder()"
+                    style="background:#f59e0b;color:#fff;"><span class="material-icons me-1"
+                      style="font-size:14px;vertical-align:middle;">save</span>บันทึกลำดับ</button>
                 </div>
-                <input type="text" class="search-box" id="admin-search" placeholder="ค้นหาผู้ใช้..." oninput="filterUserTable(this.value)" style="max-width:200px;">
+                <input type="text" class="search-box" id="admin-search" placeholder="ค้นหาผู้ใช้..."
+                  oninput="filterUserTable(this.value)" style="max-width:200px;">
               </div>
               <div class="table-responsive p-3">
                 <table class="table table-hover table-custom">
@@ -1877,16 +1913,199 @@
                   class="btn btn-sm btn-light fw-bold text-success" onclick="saveHolidays()">บันทึก</button></div>
               <div class="card-body">
                 <p class="text-muted small text-center mb-3">คลิกที่วันที่เพื่อตั้งค่า/ยกเลิก เป็นวันหยุดราชการ
-                  (สีส้มคือวันหยุด)</p>
-                <div class="holiday-calendar">
-                  <div class="calendar-header">
-                    <button class="calendar-nav-btn" onclick="changeCalendarMonth(-1)"><span
-                        class="material-icons">chevron_left</span></button>
-                    <div class="calendar-title" id="cal-month-year">...</div>
-                    <button class="calendar-nav-btn" onclick="changeCalendarMonth(1)"><span
-                        class="material-icons">chevron_right</span></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: FORMS & DOCUMENTS -->
+          <div class="tab-pane fade" id="tab-forms">
+            <div class="card p-3 mb-4 text-white"
+              style="background: linear-gradient(135deg, #104027 0%, #062615 100%); border-radius: 16px;">
+              <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <div>
+                  <h4 class="fw-bold mb-1"><span
+                      class="material-icons align-middle me-2">folder_shared</span>ศูนย์แบบฟอร์มและรับส่งเอกสาร</h4>
+                  <p class="mb-0 text-white-50 small">ดาวน์โหลดแบบฟอร์มมาตรฐาน อัปโหลดแบบฟอร์มประจำส่วนงาน
+                    และรายงานสรุปสำหรับผู้บริหาร</p>
+                </div>
+                <div id="btn-add-template-wrapper" style="display:none;">
+                  <button class="btn btn-light btn-sm fw-bold text-success shadow-sm" onclick="openTemplateModal()">
+                    <span class="material-icons align-middle me-1"
+                      style="font-size:18px;">add_circle</span>เพิ่มแบบฟอร์มต้นฉบับ
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-4">
+              <!-- Section 1: Standard Templates for Download -->
+              <div class="col-lg-5">
+                <div class="card border-0 shadow-sm h-100" style="border-radius:16px;">
+                  <div class="card-header bg-white py-3 border-0">
+                    <h5 class="fw-bold text-success mb-0 d-flex align-items-center">
+                      <span class="material-icons me-2">download_for_offline</span>ดาวน์โหลดแบบฟอร์มมาตรฐาน
+                    </h5>
                   </div>
-                  <div class="calendar-grid" id="cal-grid"></div>
+                  <div class="card-body p-3">
+                    <div id="form-templates-container" class="d-flex flex-column gap-3">
+                      <div class="text-center text-muted py-4">กำลังโหลดแบบฟอร์ม...</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 2: Upload Form by Section -->
+              <div class="col-lg-7">
+                <div class="card border-0 shadow-sm h-100" style="border-radius:16px;">
+                  <div class="card-header bg-white py-3 border-0">
+                    <h5 class="fw-bold text-primary mb-0 d-flex align-items-center">
+                      <span class="material-icons me-2">cloud_upload</span>อัปโหลดส่งแบบฟอร์มของส่วนงาน
+                    </h5>
+                  </div>
+                  <div class="card-body p-3">
+                    <form id="form-upload-section" onsubmit="submitSectionForm(event)">
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <label class="form-label fw-bold small text-muted">ส่วนงาน <span
+                              class="text-danger">*</span></label>
+                          <select id="upload-form-section" class="form-select" required></select>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label fw-bold small text-muted">ประเภทแบบฟอร์ม <span
+                              class="text-danger">*</span></label>
+                          <select id="upload-form-category" class="form-select" required>
+                            <option value="แบบฟอร์มการลา">แบบฟอร์มการลา</option>
+                            <option value="แบบฟอร์มขออนุญาต">แบบฟอร์มขออนุญาตปฏิบัติราชการ (OD)</option>
+                            <option value="สรุปเวลารายเดือน">รายงานสรุปเวลารายเดือน</option>
+                            <option value="เอกสารโครงการ/งาน">เอกสารโครงการ/กิจกรรม</option>
+                            <option value="เอกสารอื่นๆ">เอกสารอื่นๆ</option>
+                          </select>
+                        </div>
+                        <div class="col-12">
+                          <label class="form-label fw-bold small text-muted">หัวข้อเอกสาร / เรื่อง <span
+                              class="text-danger">*</span></label>
+                          <input type="text" id="upload-form-title" class="form-control"
+                            placeholder="เช่น รายงานเวลารายเดือน กุมภาพันธ์ 2568" required>
+                        </div>
+                        <div class="col-12">
+                          <label class="form-label fw-bold small text-muted">เลือกไฟล์แนบ (PDF, Word, Excel, รูปภาพ)
+                            <span class="text-danger">*</span></label>
+                          <input type="file" id="upload-form-file" class="form-control"
+                            accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.zip" required>
+                          <div class="form-text small">รองรับไฟล์ขนาดไม่เกิน 15MB</div>
+                        </div>
+                        <div class="col-12">
+                          <label class="form-label fw-bold small text-muted">หมายเหตุ / รายละเอียดเพิ่มเติม</label>
+                          <textarea id="upload-form-remark" class="form-control" rows="2"
+                            placeholder="ระบุรายละเอียดเพิ่มเติม (ถ้ามี)"></textarea>
+                        </div>
+                        <div class="col-12 text-end">
+                          <button type="submit" id="btn-upload-submit" class="btn btn-primary-forest px-4">
+                            <span class="material-icons align-middle me-1">upload</span>อัปโหลดส่งเอกสาร
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3: Uploaded Documents Table & Main Admin Report -->
+            <div class="card border-0 shadow-sm mt-4" style="border-radius:16px;">
+              <div
+                class="card-header bg-white py-3 border-0 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <div>
+                  <h5 class="fw-bold text-success mb-1 d-flex align-items-center">
+                    <span class="material-icons me-2">summarize</span>รายงานและรายการเอกสารที่ส่งแล้ว
+                  </h5>
+                  <span class="text-muted small">แอดมินหลักสามารถตรวจสอบ ดาวน์โหลดเอกสาร
+                    และส่งออกรายงานของทุกส่วนงานได้</span>
+                </div>
+                <div class="d-flex gap-2" id="forms-report-actions">
+                  <button class="btn btn-outline-success btn-sm fw-bold" id="btn-export-forms-report" onclick="exportUploadedFormsReport()">
+                    <span class="material-icons align-middle me-1">file_download</span>ส่งออกรายงาน Excel
+                  </button>
+                  <button class="btn btn-outline-primary btn-sm" onclick="loadUploadedForms()">
+                    <span class="material-icons align-middle me-1">refresh</span>รีเฟรช
+                  </button>
+                </div>
+              </div>
+
+              <div class="card-body p-3">
+                <!-- แจ้งเตือนเมื่อ Google Drive ยังไม่พร้อม -->
+                <div id="forms-drive-warning" class="alert alert-warning py-2 small mb-3" style="display:none;"></div>
+
+                <!-- สรุปภาพรวมสำหรับแอดมินหลัก -->
+                <div id="forms-summary-panel" class="mb-3" style="display:none;">
+                  <div class="row g-2 mb-3" id="forms-summary-cards"></div>
+                  <div class="table-responsive mb-3">
+                    <table class="table table-sm table-bordered align-middle mb-0" style="font-size:12px;">
+                      <thead class="table-success">
+                        <tr>
+                          <th>ส่วนงาน</th>
+                          <th class="text-center">จำนวนเอกสาร</th>
+                          <th>ประเภทเอกสาร</th>
+                          <th>อัปโหลดล่าสุด</th>
+                          <th>ผู้ส่งล่าสุด</th>
+                        </tr>
+                      </thead>
+                      <tbody id="forms-summary-tbody">
+                        <tr><td colspan="5" class="text-center text-muted py-2">กำลังโหลดสรุป...</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="row g-2 mb-3 bg-light p-2 rounded align-items-center">
+                  <div class="col-md-3">
+                    <label class="form-label small fw-bold text-muted mb-1">กรองส่วนงาน:</label>
+                    <select id="filter-uploaded-section" class="form-select form-select-sm"
+                      onchange="loadUploadedForms()"></select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label small fw-bold text-muted mb-1">กรองประเภท:</label>
+                    <select id="filter-uploaded-category" class="form-select form-select-sm"
+                      onchange="loadUploadedForms()">
+                      <option value="all">ทุกประเภทเอกสาร</option>
+                      <option value="แบบฟอร์มการลา">แบบฟอร์มการลา</option>
+                      <option value="แบบฟอร์มขออนุญาต">แบบฟอร์มขออนุญาต (OD)</option>
+                      <option value="สรุปเวลารายเดือน">รายงานสรุปเวลารายเดือน</option>
+                      <option value="เอกสารโครงการ/งาน">เอกสารโครงการ/กิจกรรม</option>
+                      <option value="เอกสารอื่นๆ">เอกสารอื่นๆ</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label small fw-bold text-muted mb-1">ค้นหา:</label>
+                    <input type="text" id="filter-uploaded-search" class="form-control form-control-sm"
+                      placeholder="พิมพ์ชื่อเรื่อง, ไฟล์, ผู้ส่ง..." oninput="loadUploadedForms()">
+                  </div>
+                  <div class="col-md-2 text-end pt-3">
+                    <span class="badge bg-success p-2" id="uploaded-count-badge">0 รายการ</span>
+                  </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table table-hover align-middle mb-0" style="font-size: 13px;">
+                    <thead class="table-light">
+                      <tr>
+                        <th style="width: 50px;">#</th>
+                        <th>ส่วนงาน</th>
+                        <th>หัวข้อเอกสาร</th>
+                        <th>ประเภท</th>
+                        <th>ชื่อไฟล์</th>
+                        <th>ผู้อัปโหลด</th>
+                        <th>วัน-เวลาที่ส่ง</th>
+                        <th class="text-center" style="width: 140px;">จัดการ</th>
+                      </tr>
+                    </thead>
+                    <tbody id="uploaded-forms-tbody">
+                      <tr>
+                        <td colspan="8" class="text-center text-muted py-4">กำลังโหลดข้อมูลเอกสาร...</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -1983,6 +2202,86 @@
         <div class="modal-footer"><button class="btn btn-outline-secondary"
             data-bs-dismiss="modal">ยกเลิก</button><button class="btn btn-primary-forest"
             onclick="saveEmpFn()">บันทึก</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal สำหรับจัดการแบบฟอร์มต้นฉบับ (แอดมินหลัก) -->
+  <div class="modal fade" id="templateModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content" style="border-radius:20px; border:none;">
+        <div class="modal-header text-white"
+          style="background: linear-gradient(135deg, var(--primary) 0%, #062615 100%); border-radius:20px 20px 0 0;">
+          <h5 class="modal-title fw-bold" id="templateModalTitle">จัดการแบบฟอร์มต้นฉบับ</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <input type="hidden" id="tpl-id">
+          <div class="mb-3"><label class="form-label small">ชื่อแบบฟอร์ม <span
+                class="text-danger">*</span></label><input id="tpl-title" class="form-control"
+              placeholder="เช่น แบบฟอร์มใบลาป่วย / ลากิจ"></div>
+          <div class="mb-3"><label class="form-label small">หมวดหมู่</label>
+            <select id="tpl-category" class="form-select">
+              <option value="แบบฟอร์มการลา">แบบฟอร์มการลา</option>
+              <option value="แบบฟอร์มขออนุญาต">แบบฟอร์มขออนุญาต (OD)</option>
+              <option value="แบบฟอร์มรายงาน">แบบฟอร์มรายงานสรุป</option>
+              <option value="ทั่วไป">ทั่วไป</option>
+            </select>
+          </div>
+          <div class="mb-3"><label class="form-label small">คำอธิบาย</label><textarea id="tpl-desc" class="form-control"
+              rows="2" placeholder="คำอธิบายสั้นๆ..."></textarea></div>
+          <div class="mb-3"><label class="form-label small">อัปโหลดไฟล์ต้นฉบับ</label><input type="file" id="tpl-file"
+              class="form-control"></div>
+          <div class="mb-3"><label class="form-label small">หรือระบุ URL ลิงก์ดาวน์โหลด</label><input id="tpl-url"
+              class="form-control" placeholder="https://..."></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+          <button class="btn btn-primary-forest" onclick="saveTemplateFn()">บันทึก</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal สำหรับแก้ไขข้อมูลเอกสารที่ส่งแล้ว (สำหรับแอดมินหลัก) -->
+  <div class="modal fade" id="editUploadedModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content" style="border-radius:20px; border:none;">
+        <div class="modal-header text-white"
+          style="background: linear-gradient(135deg, var(--primary) 0%, #062615 100%); border-radius:20px 20px 0 0;">
+          <h5 class="modal-title fw-bold">แก้ไขข้อมูลเอกสาร</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <input type="hidden" id="edit-doc-id">
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-muted">หัวข้อเอกสาร / เรื่อง <span
+                class="text-danger">*</span></label>
+            <input type="text" id="edit-doc-title" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-muted">ส่วนงาน</label>
+            <select id="edit-doc-section" class="form-select"></select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-muted">หมวดหมู่</label>
+            <select id="edit-doc-category" class="form-select">
+              <option value="แบบฟอร์มการลา">แบบฟอร์มการลา</option>
+              <option value="แบบฟอร์มขออนุญาต">แบบฟอร์มขออนุญาต (OD)</option>
+              <option value="สรุปเวลารายเดือน">รายงานสรุปเวลารายเดือน</option>
+              <option value="เอกสารโครงการ/งาน">เอกสารโครงการ/กิจกรรม</option>
+              <option value="เอกสารอื่นๆ">เอกสารอื่นๆ</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-muted">หมายเหตุ</label>
+            <textarea id="edit-doc-remark" class="form-control" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+          <button class="btn btn-primary-forest" onclick="saveEditUploadedForm()">บันทึกการแก้ไข</button>
+        </div>
       </div>
     </div>
   </div>
@@ -2224,6 +2523,7 @@
       if (tab === 'daily-report') loadDailyReport();
       if (tab === 'month') loadAllMonthSummaries();
       if (tab === 'year') loadYearlySummary();
+      if (tab === 'forms') loadFormsTab();
       if (tab === 'employee') loadEmployees();
       if (tab === 'admin') loadUsers();
       if (tab === 'holiday') loadHolidays();
@@ -2656,14 +2956,14 @@
       pop.style.left = Math.max(10, Math.min(rect.left + window.scrollX - 100, window.innerWidth - 260)) + 'px';
     }
 
-    function selectPopoverStatus(st) { 
+    function selectPopoverStatus(st) {
       if (st === 'W' && currentEditDs > today) {
         Swal.fire('แจ้งเตือน', 'ไม่สามารถลงเวลาทำงาน (W) ล่วงหน้าได้', 'warning');
         return;
       }
-      selectedStatusVal = st; 
-      document.querySelectorAll('.status-opt-btn').forEach(b => b.classList.remove('active')); 
-      document.querySelector('.status-opt-btn.btn-st-' + (st || 'none')).classList.add('active'); 
+      selectedStatusVal = st;
+      document.querySelectorAll('.status-opt-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.status-opt-btn.btn-st-' + (st || 'none')).classList.add('active');
     }
     function closePopoverEditor() { document.getElementById('cell-popover-editor').style.display = 'none'; }
 
@@ -2905,9 +3205,9 @@
             const res = await runApi('deleteEmployee', data);
             hideLoading();
             if (res.success) {
-               window._emps = window._emps.filter(x => String(x.rowIndex) !== String(data.rowIndex));
-               renderEmpTable();
-               Swal.fire({ title: 'ลบสำเร็จ', icon: 'success', timer: 1500, showConfirmButton: false });
+              window._emps = window._emps.filter(x => String(x.rowIndex) !== String(data.rowIndex));
+              renderEmpTable();
+              Swal.fire({ title: 'ลบสำเร็จ', icon: 'success', timer: 1500, showConfirmButton: false });
             }
             else Swal.fire('Error', res.message, 'error');
           } catch (err) { hideLoading(); Swal.fire('Error', err.message, 'error'); }
@@ -2928,8 +3228,8 @@
             <div class="d-flex align-items-center gap-1">
               <span class="fw-bold text-muted">${i + 1}</span>
               <div class="d-flex flex-column align-items-center ms-1">
-                <button class="btn btn-sm btn-light p-0" style="height:14px; line-height:1;" onclick="moveUser(${i}, -1)" ${i===0?'disabled':''}><span class="material-icons" style="font-size:16px;">arrow_drop_up</span></button>
-                <button class="btn btn-sm btn-light p-0" style="height:14px; line-height:1;" onclick="moveUser(${i}, 1)" ${i===users.length-1?'disabled':''}><span class="material-icons" style="font-size:16px;">arrow_drop_down</span></button>
+                <button class="btn btn-sm btn-light p-0" style="height:14px; line-height:1;" onclick="moveUser(${i}, -1)" ${i === 0 ? 'disabled' : ''}><span class="material-icons" style="font-size:16px;">arrow_drop_up</span></button>
+                <button class="btn btn-sm btn-light p-0" style="height:14px; line-height:1;" onclick="moveUser(${i}, 1)" ${i === users.length - 1 ? 'disabled' : ''}><span class="material-icons" style="font-size:16px;">arrow_drop_down</span></button>
               </div>
             </div>
           </td>
@@ -2964,7 +3264,7 @@
       window._users[i + dir] = temp;
       renderUserTable();
     }
-    
+
     async function saveUserOrder() {
       var unames = window._users.map(u => u.username);
       showLoading();
@@ -3016,12 +3316,12 @@
         await runApi('saveUser', { username: username, password: password, name: name, role: role, sections: secs, empTypes: emps });
         hideLoading();
         bootstrap.Modal.getInstance(document.getElementById('userModal')).hide();
-        
+
         if (isEdit) {
-           var u = window._users.find(u => u.username === username);
-           if (u) { u.name = name; u.role = role; u.sections = secs; u.empTypes = emps; }
+          var u = window._users.find(u => u.username === username);
+          if (u) { u.name = name; u.role = role; u.sections = secs; u.empTypes = emps; }
         } else {
-           window._users.push({ username: username, name: name, role: role, sections: secs, empTypes: emps });
+          window._users.push({ username: username, name: name, role: role, sections: secs, empTypes: emps });
         }
         renderUserTable();
         Swal.fire({ title: 'สำเร็จ', icon: 'success', timer: 1500, showConfirmButton: false });
@@ -3034,7 +3334,7 @@
           showLoading();
           try {
             await runApi('deleteUser', { username: u });
-            hideLoading(); 
+            hideLoading();
             window._users = window._users.filter(x => x.username !== u);
             renderUserTable();
             Swal.fire({ title: 'ลบสำเร็จ', icon: 'success', timer: 1500, showConfirmButton: false });
@@ -3048,13 +3348,13 @@
       var rows = document.querySelectorAll(containerSelector + ' table tbody tr');
       rows.forEach(tr => {
         if (tr.querySelector('th')) return;
-        if (tr.classList.contains('table-success')) return; 
-        
+        if (tr.classList.contains('table-success')) return;
+
         var text = tr.innerText.toLowerCase();
         tr.style.display = text.indexOf(term) > -1 ? '' : 'none';
       });
     }
-    
+
     function filterDailyTable() { filterTableRows('daily-search', '#tab-daily'); }
     function filterDrTable() { filterTableRows('dr-search', '#tab-daily-report'); }
     function filterMonthTable() { filterTableRows('month-search', '#tab-month'); }
@@ -3181,6 +3481,605 @@
       if (tblEmp) XLSX.utils.book_append_sheet(wb, XLSX.utils.table_to_sheet(tblEmp), "สรุปตามรายชื่อ");
 
       XLSX.writeFile(wb, `Yearly_Summary_${yr}.xlsx`);
+    }
+
+    // ==========================================
+    //  ระบบจัดการแบบฟอร์มและการส่งเอกสาร
+    // ==========================================
+
+    async function loadFormsTab() {
+      var isMainAdmin = (__session.role === 'super_admin' || __session.role === 'super' || __session.role === 'admin');
+      var btnAddTpl = document.getElementById('btn-add-template-wrapper');
+      if (btnAddTpl) btnAddTpl.style.display = isMainAdmin ? 'block' : 'none';
+
+      var btnExport = document.getElementById('btn-export-forms-report');
+      if (btnExport) btnExport.style.display = isMainAdmin ? 'inline-block' : 'none';
+
+      var summaryPanel = document.getElementById('forms-summary-panel');
+      if (summaryPanel) summaryPanel.style.display = isMainAdmin ? 'block' : 'none';
+
+      var secSelect = document.getElementById('upload-form-section');
+      var filterSecSelect = document.getElementById('filter-uploaded-section');
+      var secs = isMainAdmin ? ALL_SECTIONS : (__session.sections || []);
+
+      if (secSelect) {
+        secSelect.innerHTML = '';
+        secs.forEach(s => secSelect.innerHTML += `<option value="${s}">${s}</option>`);
+      }
+
+      if (filterSecSelect) {
+        var fHtml = isMainAdmin ? '<option value="all">ทุกส่วนงาน</option>' : '';
+        secs.forEach(s => fHtml += `<option value="${s}">${s}</option>`);
+        filterSecSelect.innerHTML = fHtml;
+        if (!isMainAdmin && secs.length > 0) filterSecSelect.value = secs[0];
+      }
+
+      await loadFormTemplates();
+      if (isMainAdmin) {
+        await checkFormsDriveStatus();
+        await loadFormsSummary();
+      }
+      await loadUploadedForms();
+    }
+
+    async function checkFormsDriveStatus() {
+      var warnEl = document.getElementById('forms-drive-warning');
+      if (!warnEl) return;
+      try {
+        var r = await runApi('checkDriveSetupStatus', {});
+        if (r.success && r.driveReady) {
+          warnEl.style.display = 'none';
+          return;
+        }
+        warnEl.style.display = 'block';
+        warnEl.innerHTML = '<strong>Google Drive ยังไม่พร้อม:</strong> ' + escHtml(r.message || 'กรุณาตั้งค่าสิทธิ์ Drive') +
+          '<br><span class="text-muted">ขั้นตอน: เปิด Apps Script Editor → เลือกฟังก์ชัน <code>setupFormDriveFolders</code> → กด Run → Allow → Deploy Web App ใหม่</span>';
+      } catch (e) {
+        warnEl.style.display = 'block';
+        warnEl.innerHTML = '<strong>ไม่สามารถตรวจสอบสิทธิ์ Google Drive ได้</strong> — กรุณา Deploy Code.gs ล่าสุดและรัน setupFormDriveFolders() ใน Apps Script Editor';
+      }
+    }
+
+    async function loadFormsSummary() {
+      var cardsEl = document.getElementById('forms-summary-cards');
+      var tbodyEl = document.getElementById('forms-summary-tbody');
+      if (!cardsEl || !tbodyEl) return;
+
+      try {
+        var r = await runApi('getFormsSummaryReport', {});
+        if (!r.success) {
+          tbodyEl.innerHTML = '<tr><td colspan="5" class="text-center text-danger py-2">' + (r.message || 'โหลดสรุปไม่สำเร็จ') + '</td></tr>';
+          return;
+        }
+
+        window.__formsSummaryReport = r;
+
+        cardsEl.innerHTML = `
+          <div class="col-6 col-md-3">
+            <div class="p-3 rounded-3 bg-success-subtle border border-success-subtle text-center h-100">
+              <div class="text-success fw-bold" style="font-size:24px;">${r.totalDocuments}</div>
+              <div class="small text-muted">เอกสารทั้งหมด</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 rounded-3 bg-primary-subtle border border-primary-subtle text-center h-100">
+              <div class="text-primary fw-bold" style="font-size:24px;">${r.sectionsWithUpload}/${r.totalSections}</div>
+              <div class="small text-muted">ส่วนงานที่ส่งแล้ว</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 rounded-3 bg-warning-subtle border border-warning-subtle text-center h-100">
+              <div class="text-warning-emphasis fw-bold" style="font-size:24px;">${(r.sectionsWithoutUpload || []).length}</div>
+              <div class="small text-muted">ส่วนงานที่ยังไม่ส่ง</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="p-3 rounded-3 bg-light border text-center h-100">
+              <div class="text-secondary fw-bold small">${r.generatedAt || '-'}</div>
+              <div class="small text-muted">อัปเดตล่าสุด</div>
+            </div>
+          </div>
+        `;
+
+        if (!r.sectionStats || r.sectionStats.length === 0) {
+          tbodyEl.innerHTML = '<tr><td colspan="5" class="text-center text-muted py-2">ยังไม่มีเอกสารในระบบ</td></tr>';
+          return;
+        }
+
+        tbodyEl.innerHTML = r.sectionStats.map(function (s) {
+          var cats = Object.keys(s.categories || {}).map(function (k) {
+            return k + ' (' + s.categories[k] + ')';
+          }).join(', ') || '-';
+          var rowClass = s.count === 0 ? 'table-warning' : '';
+          return `<tr class="${rowClass}">
+            <td><span class="section-badge">${escHtml(s.section)}</span></td>
+            <td class="text-center fw-bold">${s.count}</td>
+            <td class="small">${escHtml(cats)}</td>
+            <td class="small text-muted">${escHtml(s.latestUpload || '-')}</td>
+            <td class="small">${escHtml(s.uploadedBy || '-')}</td>
+          </tr>`;
+        }).join('');
+      } catch (e) {
+        tbodyEl.innerHTML = '<tr><td colspan="5" class="text-center text-danger py-2">เกิดข้อผิดพลาดในการโหลดสรุป</td></tr>';
+      }
+    }
+
+    async function loadFormTemplates() {
+      var container = document.getElementById('form-templates-container');
+      if (!container) return;
+
+      var isMainAdmin = (__session.role === 'super_admin' || __session.role === 'super' || __session.role === 'admin');
+
+      try {
+        var r = await runApi('getFormTemplates', {});
+        if (r.success && r.templates) {
+          if (r.templates.length === 0) {
+            container.innerHTML = '<div class="text-center text-muted py-4">ยังไม่มีแบบฟอร์มให้ดาวน์โหลด</div>';
+            return;
+          }
+
+          window.__formTemplates = r.templates;
+
+          var html = '';
+          r.templates.forEach(tpl => {
+            var url = tpl.downloadUrl || tpl.fileUrl;
+            var dlBtnHtml = '';
+
+            if (url) {
+              dlBtnHtml = `<a href="${url}" target="_blank" download="${tpl.fileName || tpl.title}" class="btn btn-sm btn-success fw-bold me-1 px-3 shadow-sm" title="ดาวน์โหลดแบบฟอร์ม">
+                <span class="material-icons align-middle me-1" style="font-size:16px;">file_download</span>ดาวน์โหลด
+              </a>`;
+            } else {
+              dlBtnHtml = `<button class="btn btn-sm btn-outline-success fw-bold me-1 px-3" onclick="alertNoTemplateFile('${tpl.title}')" title="คลิกเพื่อดาวน์โหลด">
+                <span class="material-icons align-middle me-1" style="font-size:16px;">file_download</span>ดาวน์โหลด
+              </button>`;
+            }
+
+            var adminBtns = '';
+            if (isMainAdmin) {
+              adminBtns = `
+                <button class="btn btn-sm btn-outline-primary p-1 border-0" title="แก้ไข / แนบไฟล์ต้นฉบับ" onclick="openEditTemplateModal('${tpl.id}')">
+                  <span class="material-icons" style="font-size:18px;">edit</span>
+                </button>
+                <button class="btn btn-sm btn-outline-danger p-1 border-0" title="ลบแบบฟอร์ม" onclick="deleteFormTemplate('${tpl.id}')">
+                  <span class="material-icons" style="font-size:18px;">delete</span>
+                </button>
+              `;
+            }
+
+            html += `
+              <div class="p-3 border rounded-3 bg-white shadow-sm d-flex align-items-center justify-content-between gap-2">
+                <div class="flex-grow-1 me-2">
+                  <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                    <span class="badge bg-success-subtle text-success border border-success-subtle fw-bold" style="font-size:11px;">${tpl.category || 'ทั่วไป'}</span>
+                    <h6 class="fw-bold text-dark mb-0">${tpl.title}</h6>
+                  </div>
+                  <p class="text-muted small mb-1">${tpl.description || 'แบบฟอร์มมาตรฐานประจำส่วนงาน'}</p>
+                  <div class="text-secondary small" style="font-size:11px;">
+                    <span class="material-icons align-middle me-1" style="font-size:13px;">attach_file</span>${tpl.fileName ? tpl.fileName : (url ? 'พร้อมดาวน์โหลด' : 'รอแอดมินหลักแนบไฟล์')}
+                  </div>
+                </div>
+                <div class="d-flex align-items-center gap-1 flex-shrink-0">
+                  ${dlBtnHtml}
+                  ${adminBtns}
+                </div>
+              </div>
+            `;
+          });
+          container.innerHTML = html;
+        } else {
+          container.innerHTML = '<div class="text-center text-danger py-4">ไม่สามารถโหลดข้อมูลแบบฟอร์มได้</div>';
+        }
+      } catch (e) {
+        container.innerHTML = '<div class="text-center text-danger py-4">เกิดข้อผิดพลาดในการโหลดแบบฟอร์ม</div>';
+      }
+    }
+
+    function alertNoTemplateFile(title) {
+      Swal.fire({
+        title: 'ยังไม่มีไฟล์แนบ',
+        text: `แบบฟอร์ม "${title}" อยู่ระหว่างแอดมินหลักอัปโหลดไฟล์ต้นฉบับลงในระบบ`,
+        icon: 'info',
+        confirmButtonText: 'รับทราบ'
+      });
+    }
+
+    async function loadUploadedForms() {
+      var tbody = document.getElementById('uploaded-forms-tbody');
+      var countBadge = document.getElementById('uploaded-count-badge');
+      if (!tbody) return;
+
+      var sec = document.getElementById('filter-uploaded-section') ? document.getElementById('filter-uploaded-section').value : 'all';
+      var cat = document.getElementById('filter-uploaded-category') ? document.getElementById('filter-uploaded-category').value : 'all';
+      var search = document.getElementById('filter-uploaded-search') ? document.getElementById('filter-uploaded-search').value.trim() : '';
+
+      try {
+        var r = await runApi('getUploadedForms', { section: sec, category: cat, search: search });
+        if (r.success && r.forms) {
+          if (countBadge) countBadge.innerText = r.forms.length + ' รายการ';
+          window.__latestUploadedForms = r.forms;
+
+          if (r.forms.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">ไม่พบเอกสารที่อัปโหลดตรงตามเงื่อนไข</td></tr>';
+            return;
+          }
+
+          var isMainAdmin = r.isMainAdmin;
+          var html = '';
+          r.forms.forEach((item, index) => {
+            var dlLinkHtml = '';
+            if (item.downloadUrl || item.fileUrl) {
+              dlLinkHtml = `<a href="${item.downloadUrl || item.fileUrl}" target="_blank" download="${item.fileName}" class="btn btn-sm btn-outline-success py-1 px-2 fw-bold" title="ดาวน์โหลดเอกสาร">
+                <span class="material-icons align-middle" style="font-size:16px;">download</span> ดาวน์โหลด
+              </a>`;
+            } else {
+              dlLinkHtml = `<span class="badge bg-secondary me-1">ไม่มีไฟล์</span>`;
+            }
+
+            // แอดมินหลักสามารถแก้ไขและลบได้ ส่วนแอดมินส่วนเห็นเฉพาะปุ่มดาวน์โหลด (ดูได้อย่างเดียว)
+            var actionBtns = dlLinkHtml;
+            if (isMainAdmin) {
+              actionBtns += `
+                <button class="btn btn-sm btn-outline-primary p-1 border-0 ms-1" title="แก้ไขเอกสาร" onclick="openEditUploadedModal('${item.id}')">
+                  <span class="material-icons" style="font-size:18px;">edit</span>
+                </button>
+                <button class="btn btn-sm btn-outline-danger p-1 border-0" title="ลบเอกสาร" onclick="deleteUploadedForm('${item.id}')">
+                  <span class="material-icons" style="font-size:18px;">delete</span>
+                </button>
+              `;
+            }
+
+            html += `
+              <tr>
+                <td class="text-center fw-bold text-muted">${index + 1}</td>
+                <td><span class="section-badge">${item.section}</span></td>
+                <td>
+                  <strong class="text-dark d-block">${item.title}</strong>
+                  ${item.remark ? `<small class="text-muted"><i class="material-icons align-middle" style="font-size:12px;">info</i> ${item.remark}</small>` : ''}
+                </td>
+                <td><span class="badge bg-light text-dark border">${item.category}</span></td>
+                <td><small class="text-secondary"><span class="material-icons align-middle" style="font-size:14px;">description</span> ${item.fileName}</small></td>
+                <td><small class="fw-semibold text-primary">${item.uploadedBy}</small></td>
+                <td><small class="text-muted">${item.uploadedAt}</small></td>
+                <td class="text-center">
+                  <div class="d-flex align-items-center justify-content-center gap-1">
+                    ${actionBtns}
+                  </div>
+                </td>
+              </tr>
+            `;
+          });
+          tbody.innerHTML = html;
+        } else {
+          tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger py-4">ไม่สามารถดึงข้อมูลเอกสารได้</td></tr>';
+        }
+      } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger py-4">เกิดข้อผิดพลาดในการโหลดรายการเอกสาร</td></tr>';
+      }
+    }
+
+    async function submitSectionForm(e) {
+      e.preventDefault();
+      var sec = document.getElementById('upload-form-section').value;
+      var cat = document.getElementById('upload-form-category').value;
+      var title = document.getElementById('upload-form-title').value.trim();
+      var remark = document.getElementById('upload-form-remark').value.trim();
+      var fileInput = document.getElementById('upload-form-file');
+
+      if (!sec || !cat || !title) {
+        return Swal.fire('ข้อมูลไม่ครบถ้วน', 'กรุณาระบุส่วนงาน หมวดหมู่ และหัวข้อเอกสาร', 'warning');
+      }
+      if (!fileInput.files || fileInput.files.length === 0) {
+        return Swal.fire('กรุณาแนบไฟล์', 'กรุณาเลือกไฟล์แบบฟอร์มที่ต้องการอัปโหลด', 'warning');
+      }
+
+      var file = fileInput.files[0];
+      if (file.size > 15 * 1024 * 1024) {
+        return Swal.fire('ไฟล์ขนาดใหญ่เกินไป', 'กรุณาอัปโหลดไฟล์ขนาดไม่เกิน 15MB', 'warning');
+      }
+
+      var btnSubmit = document.getElementById('btn-upload-submit');
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> กำลังอัปโหลด...';
+
+      var reader = new FileReader();
+      reader.onload = async function (evt) {
+        var base64Data = evt.target.result;
+        try {
+          var r = await runApi('uploadSectionForm', {
+            section: sec,
+            category: cat,
+            title: title,
+            remark: remark,
+            fileName: file.name,
+            mimeType: file.type,
+            fileData: base64Data
+          });
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML = '<span class="material-icons align-middle me-1">upload</span>อัปโหลดส่งเอกสาร';
+
+          if (r.success) {
+            Swal.fire('อัปโหลดสำเร็จ!', 'บันทึกและส่งเอกสารเรียบร้อยแล้ว', 'success');
+            document.getElementById('form-upload-section').reset();
+            if ((__session.role === 'super_admin' || __session.role === 'super' || __session.role === 'admin')) loadFormsSummary();
+            loadUploadedForms();
+          } else {
+            var errMsg = r.message || 'เกิดข้อผิดพลาดในการบันทึกเอกสาร';
+            if (errMsg.indexOf('Google Drive') !== -1 || errMsg.indexOf('Drive') !== -1) {
+              Swal.fire({
+                title: 'อัปโหลดไม่สำเร็จ',
+                html: escHtml(errMsg).replace(/\n/g, '<br>') + '<hr class="my-2"><small class="text-muted">ผู้ดูแลระบบ: เปิด Apps Script Editor → รัน <b>setupFormDriveFolders()</b> → Allow → Deploy ใหม่</small>',
+                icon: 'error'
+              });
+            } else {
+              Swal.fire('อัปโหลดไม่สำเร็จ', errMsg, 'error');
+            }
+          }
+        } catch (err) {
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML = '<span class="material-icons align-middle me-1">upload</span>อัปโหลดส่งเอกสาร';
+          Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้: ' + err.message, 'error');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function openTemplateModal() {
+      document.getElementById('tpl-id').value = '';
+      document.getElementById('tpl-title').value = '';
+      document.getElementById('tpl-category').value = 'แบบฟอร์มการลา';
+      document.getElementById('tpl-desc').value = '';
+      document.getElementById('tpl-file').value = '';
+      document.getElementById('tpl-url').value = '';
+      var modalTitle = document.getElementById('templateModalTitle');
+      if (modalTitle) modalTitle.innerText = 'เพิ่มแบบฟอร์มต้นฉบับ';
+      var modal = new bootstrap.Modal(document.getElementById('templateModal'));
+      modal.show();
+    }
+
+    function openEditTemplateModal(id) {
+      var list = window.__formTemplates || [];
+      var tpl = list.find(item => item.id === id);
+      if (!tpl) return;
+
+      document.getElementById('tpl-id').value = tpl.id;
+      document.getElementById('tpl-title').value = tpl.title || '';
+      document.getElementById('tpl-category').value = tpl.category || 'แบบฟอร์มการลา';
+      document.getElementById('tpl-desc').value = tpl.description || '';
+      document.getElementById('tpl-file').value = '';
+      document.getElementById('tpl-url').value = tpl.fileUrl || tpl.downloadUrl || '';
+
+      var modalTitle = document.getElementById('templateModalTitle');
+      if (modalTitle) modalTitle.innerText = 'แก้ไขและแนบไฟล์แบบฟอร์ม';
+
+      var modal = new bootstrap.Modal(document.getElementById('templateModal'));
+      modal.show();
+    }
+
+    async function saveTemplateFn() {
+      var id = document.getElementById('tpl-id').value;
+      var title = document.getElementById('tpl-title').value.trim();
+      var category = document.getElementById('tpl-category').value;
+      var desc = document.getElementById('tpl-desc').value.trim();
+      var fileInput = document.getElementById('tpl-file');
+      var url = document.getElementById('tpl-url').value.trim();
+
+      if (!title) return Swal.fire('กรอกข้อมูลไม่ครบ', 'กรุณาระบุชื่อแบบฟอร์ม', 'warning');
+
+      showLoading();
+
+      var payload = { id: id, title: title, category: category, description: desc, fileUrl: url };
+
+      if (fileInput.files && fileInput.files.length > 0) {
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+        reader.onload = async function (evt) {
+          payload.fileName = file.name;
+          payload.mimeType = file.type;
+          payload.fileData = evt.target.result;
+          await execSaveTemplate(payload);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        await execSaveTemplate(payload);
+      }
+    }
+
+    async function execSaveTemplate(payload) {
+      try {
+        var r = await runApi('saveFormTemplate', payload);
+        hideLoading();
+        if (r.success) {
+          Swal.fire('สำเร็จ', 'บันทึกแบบฟอร์มต้นฉบับเรียบร้อย', 'success');
+          var modalEl = document.getElementById('templateModal');
+          var modalInst = bootstrap.Modal.getInstance(modalEl);
+          if (modalInst) modalInst.hide();
+          loadFormTemplates();
+        } else {
+          Swal.fire('ข้อผิดพลาด', r.message || 'บันทึกไม่สำเร็จ', 'error');
+        }
+      } catch (e) {
+        hideLoading();
+        Swal.fire('ข้อผิดพลาด', e.message, 'error');
+      }
+    }
+
+    async function deleteFormTemplate(id) {
+      var confirm = await Swal.fire({
+        title: 'ยืนยันการลบ?',
+        text: 'คุณต้องการลบแบบฟอร์มต้นฉบับนี้ใช่หรือไม่',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'ใช่, ลบเลย',
+        cancelButtonText: 'ยกเลิก'
+      });
+      if (confirm.isConfirmed) {
+        showLoading();
+        try {
+          var r = await runApi('deleteFormTemplate', { id: id });
+          hideLoading();
+          if (r.success) {
+            Swal.fire('ลบสำเร็จ', 'ลบแบบฟอร์มเรียบร้อยแล้ว', 'success');
+            loadFormTemplates();
+          } else {
+            Swal.fire('ข้อผิดพลาด', r.message, 'error');
+          }
+        } catch (e) {
+          hideLoading();
+          Swal.fire('ข้อผิดพลาด', e.message, 'error');
+        }
+      }
+    }
+
+    async function deleteUploadedForm(id) {
+      var confirm = await Swal.fire({
+        title: 'ยืนยันการลบเอกสาร?',
+        text: 'เอกสารจะถูกลบออกจากระบบและถังขยะ Google Drive',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'ใช่, ลบเลย',
+        cancelButtonText: 'ยกเลิก'
+      });
+      if (confirm.isConfirmed) {
+        showLoading();
+        try {
+          var r = await runApi('deleteUploadedForm', { id: id });
+          hideLoading();
+          if (r.success) {
+            Swal.fire('ลบสำเร็จ', 'ลบเอกสารเรียบร้อยแล้ว', 'success');
+            loadFormsSummary();
+            loadUploadedForms();
+          } else {
+            Swal.fire('ข้อผิดพลาด', r.message, 'error');
+          }
+        } catch (e) {
+          hideLoading();
+          Swal.fire('ข้อผิดพลาด', e.message, 'error');
+        }
+      }
+    }
+
+    function exportUploadedFormsReport() {
+      var isMainAdmin = (__session.role === 'super_admin' || __session.role === 'super' || __session.role === 'admin');
+      if (!isMainAdmin) {
+        return Swal.fire('ไม่มีสิทธิ์', 'เฉพาะแอดมินหลักเท่านั้นที่ส่งออกรายงานสรุปได้', 'warning');
+      }
+
+      var list = window.__latestUploadedForms || [];
+      var summary = window.__formsSummaryReport;
+
+      if (list.length === 0 && (!summary || !summary.sectionStats)) {
+        return Swal.fire('ไม่มีข้อมูล', 'ไม่มีรายการเอกสารสำหรับออกรายงาน', 'info');
+      }
+
+      var now = new Date();
+      var dateStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+
+      if (typeof XLSX !== 'undefined') {
+        var wb = XLSX.utils.book_new();
+
+        if (summary && summary.sectionStats) {
+          var summaryRows = [['รายงานสรุปการส่งแบบฟอร์มและเอกสาร'], ['วันที่ออกรายงาน', summary.generatedAt || dateStr], ['เอกสารทั้งหมด', summary.totalDocuments], ['ส่วนงานที่ส่งแล้ว', summary.sectionsWithUpload + ' / ' + summary.totalSections], []];
+          summaryRows.push(['ส่วนงาน', 'จำนวนเอกสาร', 'ประเภทเอกสาร', 'อัปโหลดล่าสุด', 'ผู้ส่งล่าสุด']);
+          summary.sectionStats.forEach(function (s) {
+            var cats = Object.keys(s.categories || {}).map(function (k) { return k + ' (' + s.categories[k] + ')'; }).join(', ');
+            summaryRows.push([s.section, s.count, cats || '-', s.latestUpload || '-', s.uploadedBy || '-']);
+          });
+          if (summary.sectionsWithoutUpload && summary.sectionsWithoutUpload.length > 0) {
+            summaryRows.push([]);
+            summaryRows.push(['ส่วนงานที่ยังไม่ส่งเอกสาร']);
+            summary.sectionsWithoutUpload.forEach(function (sec) { summaryRows.push([sec]); });
+          }
+          XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(summaryRows), 'สรุปตามส่วนงาน');
+        }
+
+        var detailRows = [['ลำดับ', 'ส่วนงาน', 'หัวข้อเอกสาร', 'หมวดหมู่', 'ชื่อไฟล์', 'ผู้อัปโหลด', 'วันเวลาที่ส่ง', 'หมายเหตุ', 'ลิงก์ดาวน์โหลด']];
+        list.forEach(function (item, idx) {
+          detailRows.push([
+            idx + 1, item.section || '', item.title || '', item.category || '',
+            item.fileName || '', item.uploadedBy || '', item.uploadedAt || '',
+            item.remark || '', item.downloadUrl || item.fileUrl || ''
+          ]);
+        });
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(detailRows), 'รายละเอียดเอกสาร');
+        XLSX.writeFile(wb, 'รายงานการส่งแบบฟอร์มเอกสาร_' + dateStr + '.xlsx');
+        return;
+      }
+
+      var csvContent = "\uFEFF";
+      csvContent += "ลำดับ,ส่วนงาน,หัวข้อเอกสาร,หมวดหมู่,ชื่อไฟล์,ผู้อัปโหลด,วันเวลาที่ส่ง,หมายเหตุ,ลิงก์ดาวน์โหลด\n";
+      list.forEach(function (item, idx) {
+        var row = [
+          idx + 1,
+          '"' + String(item.section || '').replace(/"/g, '""') + '"',
+          '"' + String(item.title || '').replace(/"/g, '""') + '"',
+          '"' + String(item.category || '').replace(/"/g, '""') + '"',
+          '"' + String(item.fileName || '').replace(/"/g, '""') + '"',
+          '"' + String(item.uploadedBy || '').replace(/"/g, '""') + '"',
+          '"' + String(item.uploadedAt || '').replace(/"/g, '""') + '"',
+          '"' + String(item.remark || '').replace(/"/g, '""') + '"',
+          '"' + String(item.downloadUrl || item.fileUrl || '').replace(/"/g, '""') + '"'
+        ];
+        csvContent += row.join(",") + "\n";
+      });
+      var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", 'รายงานการส่งแบบฟอร์มเอกสาร_' + dateStr + '.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function openEditUploadedModal(id) {
+      var list = window.__latestUploadedForms || [];
+      var target = list.find(item => item.id === id);
+      if (!target) return;
+
+      document.getElementById('edit-doc-id').value = target.id;
+      document.getElementById('edit-doc-title').value = target.title || '';
+      document.getElementById('edit-doc-category').value = target.category || 'เอกสารอื่นๆ';
+      document.getElementById('edit-doc-remark').value = target.remark || '';
+
+      var secSel = document.getElementById('edit-doc-section');
+      if (secSel) {
+        secSel.innerHTML = '';
+        ALL_SECTIONS.forEach(s => secSel.innerHTML += `<option value="${s}">${s}</option>`);
+        secSel.value = target.section;
+      }
+
+      var modal = new bootstrap.Modal(document.getElementById('editUploadedModal'));
+      modal.show();
+    }
+
+    async function saveEditUploadedForm() {
+      var id = document.getElementById('edit-doc-id').value;
+      var title = document.getElementById('edit-doc-title').value.trim();
+      var category = document.getElementById('edit-doc-category').value;
+      var section = document.getElementById('edit-doc-section').value;
+      var remark = document.getElementById('edit-doc-remark').value.trim();
+
+      if (!title) return Swal.fire('กรอกข้อมูลไม่ครบ', 'กรุณาระบุหัวข้อเอกสาร', 'warning');
+
+      showLoading();
+      try {
+        var r = await runApi('editUploadedForm', { id: id, title: title, category: category, section: section, remark: remark });
+        hideLoading();
+        if (r.success) {
+          Swal.fire('สำเร็จ', 'แก้ไขข้อมูลเอกสารเรียบร้อยแล้ว', 'success');
+          var modalEl = document.getElementById('editUploadedModal');
+          var modalInst = bootstrap.Modal.getInstance(modalEl);
+          if (modalInst) modalInst.hide();
+          loadFormsSummary();
+          loadUploadedForms();
+        } else {
+          Swal.fire('ข้อผิดพลาด', r.message || 'ไม่สามารถแก้ไขได้', 'error');
+        }
+      } catch (e) {
+        hideLoading();
+        Swal.fire('ข้อผิดพลาด', e.message, 'error');
+      }
     }
   </script>
 </body>
