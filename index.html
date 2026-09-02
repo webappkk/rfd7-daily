@@ -1909,10 +1909,27 @@
           </div>
           <div class="tab-pane fade" id="tab-holiday">
             <div class="card border-0">
-              <div class="card-header-green">จัดการปฏิทินวันหยุดราชการ<button
-                  class="btn btn-sm btn-light fw-bold text-success" onclick="saveHolidays()">บันทึก</button></div>
-              <div class="card-body">
-                <p class="text-muted small text-center mb-3">คลิกที่วันที่เพื่อตั้งค่า/ยกเลิก เป็นวันหยุดราชการ
+              <div class="card-header-green d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <span>จัดการปฏิทินวันหยุดราชการ</span>
+                <button class="btn btn-sm btn-light fw-bold text-success" onclick="saveHolidays()">
+                  <span class="material-icons align-middle me-1" style="font-size:16px;">save</span>บันทึกวันหยุด
+                </button>
+              </div>
+              <div class="card-body p-3">
+                <p class="text-muted small text-center mb-3">คลิกที่วันที่เพื่อตั้งค่า/ยกเลิก วันหยุดราชการ
+                  (วันที่มีสีส้มคือวันหยุด)</p>
+                <div class="holiday-calendar mx-auto">
+                  <div class="calendar-header">
+                    <button class="calendar-nav-btn" onclick="changeCalendarMonth(-1)">
+                      <span class="material-icons">chevron_left</span>
+                    </button>
+                    <span class="calendar-title" id="cal-month-year">--</span>
+                    <button class="calendar-nav-btn" onclick="changeCalendarMonth(1)">
+                      <span class="material-icons">chevron_right</span>
+                    </button>
+                  </div>
+                  <div class="calendar-grid" id="cal-grid"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -1928,11 +1945,25 @@
                   <p class="mb-0 text-white-50 small">ดาวน์โหลดแบบฟอร์มมาตรฐาน อัปโหลดแบบฟอร์มประจำส่วนงาน
                     และรายงานสรุปสำหรับผู้บริหาร</p>
                 </div>
-                <div id="btn-add-template-wrapper" style="display:none;">
-                  <button class="btn btn-light btn-sm fw-bold text-success shadow-sm" onclick="openTemplateModal()">
-                    <span class="material-icons align-middle me-1"
-                      style="font-size:18px;">add_circle</span>เพิ่มแบบฟอร์มต้นฉบับ
-                  </button>
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                  <!-- Toggle เปิด/ปิดการอัปโหลด (Super Admin เท่านั้น) -->
+                  <div id="upload-toggle-wrapper" style="display:none;">
+                    <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 rounded-3 px-3 py-2">
+                      <span class="material-icons" style="font-size:18px;">cloud_upload</span>
+                      <span class="small fw-bold">รับอัปโหลด:</span>
+                      <div class="form-check form-switch mb-0">
+                        <input class="form-check-input" type="checkbox" id="toggle-upload-enabled"
+                          style="width:2.5em;height:1.3em;cursor:pointer;" onchange="toggleSectionUpload(this.checked)">
+                      </div>
+                      <span id="toggle-upload-label" class="small fw-semibold" style="min-width:32px;">--</span>
+                    </div>
+                  </div>
+                  <div id="btn-add-template-wrapper" style="display:none;">
+                    <button class="btn btn-light btn-sm fw-bold text-success shadow-sm" onclick="openTemplateModal()">
+                      <span class="material-icons align-middle me-1"
+                        style="font-size:18px;">add_circle</span>เพิ่มแบบฟอร์มต้นฉบับ
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1963,49 +1994,60 @@
                     </h5>
                   </div>
                   <div class="card-body p-3">
-                    <form id="form-upload-section" onsubmit="submitSectionForm(event)">
-                      <div class="row g-3">
-                        <div class="col-md-6">
-                          <label class="form-label fw-bold small text-muted">ส่วนงาน <span
-                              class="text-danger">*</span></label>
-                          <select id="upload-form-section" class="form-select" required></select>
-                        </div>
-                        <div class="col-md-6">
-                          <label class="form-label fw-bold small text-muted">ประเภทแบบฟอร์ม <span
-                              class="text-danger">*</span></label>
-                          <select id="upload-form-category" class="form-select" required>
-                            <option value="แบบฟอร์มการลา">แบบฟอร์มการลา</option>
-                            <option value="แบบฟอร์มขออนุญาต">แบบฟอร์มขออนุญาตปฏิบัติราชการ (OD)</option>
-                            <option value="สรุปเวลารายเดือน">รายงานสรุปเวลารายเดือน</option>
-                            <option value="เอกสารโครงการ/งาน">เอกสารโครงการ/กิจกรรม</option>
-                            <option value="เอกสารอื่นๆ">เอกสารอื่นๆ</option>
-                          </select>
-                        </div>
-                        <div class="col-12">
-                          <label class="form-label fw-bold small text-muted">หัวข้อเอกสาร / เรื่อง <span
-                              class="text-danger">*</span></label>
-                          <input type="text" id="upload-form-title" class="form-control"
-                            placeholder="เช่น รายงานเวลารายเดือน กุมภาพันธ์ 2568" required>
-                        </div>
-                        <div class="col-12">
-                          <label class="form-label fw-bold small text-muted">เลือกไฟล์แนบ (PDF, Word, Excel, รูปภาพ)
-                            <span class="text-danger">*</span></label>
-                          <input type="file" id="upload-form-file" class="form-control"
-                            accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.zip" required>
-                          <div class="form-text small">รองรับไฟล์ขนาดไม่เกิน 15MB</div>
-                        </div>
-                        <div class="col-12">
-                          <label class="form-label fw-bold small text-muted">หมายเหตุ / รายละเอียดเพิ่มเติม</label>
-                          <textarea id="upload-form-remark" class="form-control" rows="2"
-                            placeholder="ระบุรายละเอียดเพิ่มเติม (ถ้ามี)"></textarea>
-                        </div>
-                        <div class="col-12 text-end">
-                          <button type="submit" id="btn-upload-submit" class="btn btn-primary-forest px-4">
-                            <span class="material-icons align-middle me-1">upload</span>อัปโหลดส่งเอกสาร
-                          </button>
-                        </div>
+                    <!-- Banner แจ้งปิดระบบ -->
+                    <div id="upload-disabled-banner" class="alert alert-danger d-flex align-items-center gap-2 mb-3"
+                      style="display:none !important; border-radius:12px;">
+                      <span class="material-icons" style="font-size:22px;">lock</span>
+                      <div>
+                        <strong>ระบบอัปโหลดปิดอยู่</strong>
+                        <div class="small mt-1">Super Admin ปิดการรับอัปโหลดเอกสารชั่วคราว กรุณาติดต่อผู้ดูแลระบบ</div>
                       </div>
-                    </form>
+                    </div>
+                    <div id="upload-form-wrapper">
+                      <form id="form-upload-section" onsubmit="submitSectionForm(event)">
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                            <label class="form-label fw-bold small text-muted">ส่วนงาน <span
+                                class="text-danger">*</span></label>
+                            <select id="upload-form-section" class="form-select" required></select>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label fw-bold small text-muted">ประเภทแบบฟอร์ม <span
+                                class="text-danger">*</span></label>
+                            <select id="upload-form-category" class="form-select" required>
+                              <option value="แบบฟอร์มการลา">แบบฟอร์มการลา</option>
+                              <option value="แบบฟอร์มขออนุญาต">แบบฟอร์มขออนุญาตปฏิบัติราชการ (OD)</option>
+                              <option value="สรุปเวลารายเดือน">รายงานสรุปเวลารายเดือน</option>
+                              <option value="เอกสารโครงการ/งาน">เอกสารโครงการ/กิจกรรม</option>
+                              <option value="เอกสารอื่นๆ">เอกสารอื่นๆ</option>
+                            </select>
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label fw-bold small text-muted">หัวข้อเอกสาร / เรื่อง <span
+                                class="text-danger">*</span></label>
+                            <input type="text" id="upload-form-title" class="form-control"
+                              placeholder="เช่น รายงานเวลารายเดือน กุมภาพันธ์ 2568" required>
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label fw-bold small text-muted">เลือกไฟล์แนบ (PDF, Word, Excel, รูปภาพ)
+                              <span class="text-danger">*</span></label>
+                            <input type="file" id="upload-form-file" class="form-control"
+                              accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.zip" required>
+                            <div class="form-text small">รองรับไฟล์ขนาดไม่เกิน 15MB</div>
+                          </div>
+                          <div class="col-12">
+                            <label class="form-label fw-bold small text-muted">หมายเหตุ / รายละเอียดเพิ่มเติม</label>
+                            <textarea id="upload-form-remark" class="form-control" rows="2"
+                              placeholder="ระบุรายละเอียดเพิ่มเติม (ถ้ามี)"></textarea>
+                          </div>
+                          <div class="col-12 text-end">
+                            <button type="submit" id="btn-upload-submit" class="btn btn-primary-forest px-4">
+                              <span class="material-icons align-middle me-1">upload</span>อัปโหลดส่งเอกสาร
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2023,7 +2065,8 @@
                     และส่งออกรายงานของทุกส่วนงานได้</span>
                 </div>
                 <div class="d-flex gap-2" id="forms-report-actions">
-                  <button class="btn btn-outline-success btn-sm fw-bold" id="btn-export-forms-report" onclick="exportUploadedFormsReport()">
+                  <button class="btn btn-outline-success btn-sm fw-bold" id="btn-export-forms-report"
+                    onclick="exportUploadedFormsReport()">
                     <span class="material-icons align-middle me-1">file_download</span>ส่งออกรายงาน Excel
                   </button>
                   <button class="btn btn-outline-primary btn-sm" onclick="loadUploadedForms()">
@@ -2051,7 +2094,9 @@
                         </tr>
                       </thead>
                       <tbody id="forms-summary-tbody">
-                        <tr><td colspan="5" class="text-center text-muted py-2">กำลังโหลดสรุป...</td></tr>
+                        <tr>
+                          <td colspan="5" class="text-center text-muted py-2">กำลังโหลดสรุป...</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -2980,9 +3025,18 @@
       var tr = document.querySelector(`tr[data-ri="${currentEditRi}"]`);
       if (tr) {
         var counts = { W: 0, OD: 0, SL: 0, PL: 0, VL: 0, AB: 0, LT: 0 };
-        currentDays.forEach(ds => { var s = (currentDailyRows[currentEditRi].days[ds] || {}).status; if (counts.hasOwnProperty(s)) counts[s]++; });
+        var weekendToAdd = 0;
+        currentDays.forEach(ds => {
+          var s = (currentDailyRows[currentEditRi].days[ds] || {}).status;
+          if (counts.hasOwnProperty(s)) counts[s]++;
+          var dObj = new Date(ds);
+          if ((dObj.getDay() === 0 || dObj.getDay() === 6) && (!s || s === '')) {
+            weekendToAdd++;
+          }
+        });
+        var totalW = counts.W + counts.LT + weekendToAdd;
         var sums = tr.querySelectorAll('td:nth-last-child(-n+7)');
-        [counts.W, counts.OD, counts.SL, counts.PL, counts.VL, counts.AB, counts.LT].forEach((v, i) => sums[i].innerText = v);
+        [totalW, counts.OD, counts.SL, counts.PL, counts.VL, counts.AB, counts.LT].forEach((v, i) => sums[i].innerText = v);
       }
     }
 
@@ -3074,7 +3128,13 @@
 
     function renderMonthSummaryPanel(r, et, yr, mo) {
       var p = document.getElementById('month-panel-' + et);
-      if (!r.rows || r.rows.length === 0) { p.innerHTML = '<div class="card p-5 text-center">ไม่พบข้อมูล</div>'; return; }
+      window.__monthSummaryRows = window.__monthSummaryRows || {};
+      if (!r.rows || r.rows.length === 0) {
+        window.__monthSummaryRows[et] = [];
+        p.innerHTML = '<div class="card p-5 text-center">ไม่พบข้อมูล</div>';
+        return;
+      }
+      window.__monthSummaryRows[et] = r.rows;
 
       var tbody = r.rows.map((row, i) => `<tr><td>${i + 1}</td>
     <td class="text-start" style="line-height:1.2;">
@@ -3455,19 +3515,33 @@
     function exportMonthToExcel() {
       var yr = document.getElementById('sm-year').value, mo = document.getElementById('sm-month').value;
       var wb = XLSX.utils.book_new();
+      var cache = window.__monthSummaryRows || {};
 
-      ['kharachakan', 'luksang', 'panakngan'].forEach(et => {
-        var panel = document.getElementById('month-panel-' + et);
-        var table = panel.querySelector('table');
-        if (table) {
-          var ws = XLSX.utils.table_to_sheet(table);
-          var sheetName = et === 'kharachakan' ? 'ข้าราชการ' : (et === 'luksang' ? 'ลูกจ้างประจำ' : 'พนักงานราชการ');
-          XLSX.utils.book_append_sheet(wb, ws, sheetName);
-        }
+      ['kharachakan', 'luksang', 'panakngan'].forEach(function (et) {
+        var rows = cache[et];
+        if (!rows || rows.length === 0) return;
+        var data = [['ลำดับ', 'ชื่อ - นามสกุล', 'ตำแหน่ง', 'ส่วนงาน', 'ทำงาน', 'ราชการ', 'ป่วย', 'ลากิจ', 'พักผ่อน', 'ขาด']];
+        rows.forEach(function (row, i) {
+          data.push([
+            i + 1,
+            String(row.firstName + ' ' + row.lastName).trim(),
+            row.position || '',
+            row.section || '',
+            row.totalWork,
+            row.totalOD,
+            row.totalSick,
+            row.totalPersonal,
+            row.totalVacation,
+            row.totalAbsent || '-'
+          ]);
+        });
+        var ws = XLSX.utils.aoa_to_sheet(data);
+        var sheetName = et === 'kharachakan' ? 'ข้าราชการ' : (et === 'luksang' ? 'ลูกจ้างประจำ' : 'พนักงานราชการ');
+        XLSX.utils.book_append_sheet(wb, ws, sheetName);
       });
 
       if (wb.SheetNames.length === 0) return Swal.fire('แจ้งเตือน', 'ไม่มีข้อมูลสำหรับส่งออก', 'warning');
-      XLSX.writeFile(wb, `Monthly_Summary_${yr}_${mo}.xlsx`);
+      XLSX.writeFile(wb, 'Monthly_Summary_' + yr + '_' + mo + '.xlsx');
     }
 
     function exportYearToExcel() {
@@ -3488,9 +3562,14 @@
     // ==========================================
 
     async function loadFormsTab() {
-      var isMainAdmin = (__session.role === 'super_admin' || __session.role === 'super' || __session.role === 'admin');
+      var isSuperAdmin = (__session.role === 'super_admin' || __session.role === 'super');
+      var isMainAdmin = isSuperAdmin || __session.role === 'admin';
       var btnAddTpl = document.getElementById('btn-add-template-wrapper');
       if (btnAddTpl) btnAddTpl.style.display = isMainAdmin ? 'block' : 'none';
+
+      // Toggle เปิด/ปิดเห็นเฉพาะ Super Admin
+      var uploadToggleWrapper = document.getElementById('upload-toggle-wrapper');
+      if (uploadToggleWrapper) uploadToggleWrapper.style.display = isSuperAdmin ? 'block' : 'none';
 
       var btnExport = document.getElementById('btn-export-forms-report');
       if (btnExport) btnExport.style.display = isMainAdmin ? 'inline-block' : 'none';
@@ -3519,7 +3598,73 @@
         await checkFormsDriveStatus();
         await loadFormsSummary();
       }
+      await loadSectionUploadStatus();
       await loadUploadedForms();
+    }
+
+    // สถานะเปิด/ปิดระบบอัปโหลด (Global)
+    var __sectionUploadEnabled = true;
+
+    async function loadSectionUploadStatus() {
+      try {
+        var r = await runApi('getSectionUploadEnabled', {});
+        if (r.success) {
+          __sectionUploadEnabled = r.enabled;
+          applySectionUploadUI(r.enabled);
+        }
+      } catch (e) { /* ถ้าโหลดไม่ได้ ให้เปิดไว้ก่อน */ }
+    }
+
+    async function toggleSectionUpload(enabled) {
+      var toggleInput = document.getElementById('toggle-upload-enabled');
+      if (toggleInput) toggleInput.disabled = true;
+      try {
+        var r = await runApi('setSectionUploadEnabled', { enabled: enabled });
+        if (r.success) {
+          __sectionUploadEnabled = r.enabled;
+          applySectionUploadUI(r.enabled);
+          Swal.fire({
+            toast: true, position: 'top-end', icon: r.enabled ? 'success' : 'warning',
+            title: r.enabled ? 'เปิดระบบอัปโหลดแล้ว' : 'ปิดระบบอัปโหลดแล้ว',
+            showConfirmButton: false, timer: 2000
+          });
+        } else {
+          Swal.fire('ไม่สำเร็จ', r.message || 'เกิดข้อผิดพลาด', 'error');
+          // ย้อนค่า toggle กลับ
+          applySectionUploadUI(__sectionUploadEnabled);
+        }
+      } catch (e) {
+        Swal.fire('ไม่สำเร็จ', 'ไม่สามารถติดต่อ Server: ' + e.message, 'error');
+        applySectionUploadUI(__sectionUploadEnabled);
+      } finally {
+        if (toggleInput) toggleInput.disabled = false;
+      }
+    }
+
+    function applySectionUploadUI(enabled) {
+      // อัปเดต toggle switch
+      var toggleInput = document.getElementById('toggle-upload-enabled');
+      if (toggleInput) toggleInput.checked = enabled;
+
+      // อัปเดต label
+      var labelEl = document.getElementById('toggle-upload-label');
+      if (labelEl) {
+        labelEl.textContent = enabled ? 'เปิด' : 'ปิด';
+        labelEl.style.color = enabled ? '#4ade80' : '#f87171';
+      }
+
+      // แสดง/ซ่อน banner
+      var banner = document.getElementById('upload-disabled-banner');
+      if (banner) banner.style.display = enabled ? 'none' : 'flex';
+
+      // แสดง/ซ่อน + disable ฟอร์ม
+      var formWrapper = document.getElementById('upload-form-wrapper');
+      if (formWrapper) {
+        formWrapper.style.opacity = enabled ? '1' : '0.45';
+        formWrapper.style.pointerEvents = enabled ? '' : 'none';
+      }
+      var submitBtn = document.getElementById('btn-upload-submit');
+      if (submitBtn) submitBtn.disabled = !enabled;
     }
 
     async function checkFormsDriveStatus() {
