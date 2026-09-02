@@ -172,15 +172,15 @@
 
     .login-card {
       width: 100%;
-      max-width: 420px;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      padding: 40px 32px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      max-width: 440px;
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.3);
       z-index: 10;
-      text-align: center;
-      animation: loginCardIn 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: loginCardIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
     }
 
     @keyframes loginCardIn {
@@ -195,56 +195,95 @@
       }
     }
 
-    .login-logo {
-      font-size: 44px;
-      color: var(--primary);
-      background: rgba(10, 64, 35, 0.1);
-      padding: 16px;
-      border-radius: 50%;
+    .login-header-graphics {
+      background: linear-gradient(135deg, #1c7167 0%, #309886 100%);
+      position: relative;
+      padding: 40px 30px;
+      padding-bottom: 70px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .login-header-graphics h3 {
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 8px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .login-header-graphics p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 13px;
+      z-index: 2;
+      position: relative;
+      margin-bottom: 0;
+    }
+
+    .graphic-scene {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .login-card-body {
+      padding: 30px 40px 40px 40px;
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .pill-input-group {
+      border-radius: 50rem;
+      overflow: hidden;
+      background: #256d68;
+      align-items: center;
+      padding: 0 4px;
       margin-bottom: 16px;
-      display: inline-flex;
-      animation: loginLogoPulse 2.6s ease-in-out infinite, loginLogoIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s backwards;
-      box-shadow: 0 0 0 0 rgba(10, 64, 35, 0.25);
     }
 
-    @keyframes loginLogoPulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(10, 64, 35, 0.25);
-      }
-
-      50% {
-        transform: scale(1.07);
-        box-shadow: 0 0 0 12px rgba(10, 64, 35, 0);
-      }
+    .pill-input-group span {
+      background: transparent;
+      border: none;
+      color: #fff;
+      padding-left: 20px;
+      padding-right: 10px;
     }
 
-    @keyframes loginLogoIn {
-      from {
-        opacity: 0;
-        transform: scale(0.4) rotate(-25deg);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-      }
+    .pill-input-group input {
+      background: transparent !important;
+      border: none !important;
+      color: #fff !important;
+      padding: 14px 10px;
+      box-shadow: none !important;
     }
 
-    .login-card .form-label,
-    .login-card .mb-3,
-    .login-card .mb-4 {
+    .pill-input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    .login-card-body .form-wrapper-field {
       animation: loginFieldIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
     }
 
-    .login-card .mb-3 {
+    .login-card-body .form-wrapper-field:nth-child(2) {
       animation-delay: 0.25s;
     }
 
-    .login-card .mb-4 {
+    .login-card-body .form-wrapper-field:nth-child(3) {
       animation-delay: 0.35s;
+    }
+
+    .login-card-body .form-wrapper-field:nth-child(4) {
+      animation-delay: 0.45s;
+    }
+
+    .login-card-body .btn-login-submit {
+      animation: loginFieldIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+      animation-delay: 0.55s;
     }
 
     @keyframes loginFieldIn {
@@ -558,7 +597,7 @@
 
     /* ตรึงคอลัมน์ให้อยู่กับที่ (ซ้าย) แบบเป๊ะๆ สำหรับทุกหน้าจอ - ขยายให้พอดีกับข้อมูล */
     .col-seq {
-      position: -webkit-sticky;
+      position: -webkit-sticky !important;
       position: sticky !important;
       left: 0 !important;
       width: 64px;
@@ -572,7 +611,7 @@
     }
 
     .col-name {
-      position: -webkit-sticky;
+      position: -webkit-sticky !important;
       position: sticky !important;
       left: 64px !important;
       width: 210px;
@@ -588,7 +627,7 @@
     }
 
     .col-sec {
-      position: -webkit-sticky;
+      position: -webkit-sticky !important;
       position: sticky !important;
       left: 274px !important;
       width: 150px;
@@ -603,10 +642,14 @@
       transition: background-color 0.2s ease;
     }
 
+
+
     /* ทับซ้อน (Intersection) ของด้านบนสุดและด้านซ้ายสุด ให้อยู่เลเยอร์บนสุด */
     .table-daily thead th.col-seq,
     .table-daily thead th.col-name,
     .table-daily thead th.col-sec {
+      position: -webkit-sticky !important;
+      position: sticky !important;
       z-index: 15 !important;
       background-color: #f8faf9 !important;
       white-space: nowrap;
@@ -1481,24 +1524,87 @@
         style="left:88%; font-size:22px; animation-duration:16s; animation-delay:1s;">eco</span>
     </div>
     <div class="login-card">
-      <span class="material-icons login-logo">forest</span>
-      <h4 class="mt-2 mb-1" style="color:var(--primary);font-weight:800;">ระบบบันทึกเวลาทำงาน</h4>
-      <p class="text-muted small mb-4">สำนักจัดการทรัพยากรป่าไม้ที่ 7 (ขอนแก่น)</p>
+      <div class="login-header-graphics">
+        <h3>ยินดีต้อนรับ</h3>
+        <p>ระบบบันทึกเวลาทำงาน<br>สจป.7 (ขอนแก่น)</p>
 
-      <div class="mb-3 text-start">
-        <label class="form-label fw-bold text-muted small">ชื่อผู้ใช้</label>
-        <input id="uname" type="text" class="form-control form-control-lg" placeholder="ชื่อผู้ใช้หรือชื่อส่วน"
-          onkeydown="if(event.key==='Enter') doLogin()">
-      </div>
-      <div class="mb-4 text-start">
-        <label class="form-label fw-bold text-muted small">รหัสผ่าน</label>
-        <input id="upass" type="password" class="form-control form-control-lg" placeholder="รหัสผ่าน"
-          onkeydown="if(event.key==='Enter') doLogin()">
+        <!-- SVG กราฟิกภูเขา/ป่าสนกลางคืน -->
+        <svg class="graphic-scene" viewBox="0 0 400 120" preserveAspectRatio="none">
+          <defs>
+            <path id="pine"
+              d="M 20,0 L 10,15 L 15,15 L 5,30 L 12,30 L -2,45 L 8,45 L -10,65 L 15,65 L 15,80 L 25,80 L 25,65 L 50,65 L 32,45 L 42,45 L 28,30 L 35,30 L 25,15 L 30,15 Z" />
+          </defs>
+
+          <!-- ดวงดาวประดับฟ้า -->
+          <circle cx="40" cy="20" r="1" fill="#fff" opacity="0.8" />
+          <circle cx="110" cy="35" r="1.5" fill="#fff" opacity="0.6" />
+          <circle cx="260" cy="15" r="1" fill="#fff" opacity="0.9" />
+          <circle cx="320" cy="28" r="1.2" fill="#fff" opacity="0.7" />
+          <circle cx="380" cy="45" r="0.8" fill="#fff" opacity="0.5" />
+
+          <!-- ดวงจันทร์สว่าง -->
+          <circle cx="180" cy="50" r="28" fill="#a4f3cc" opacity="0.3" />
+          <circle cx="180" cy="50" r="18" fill="#a4f3cc" opacity="0.7" />
+
+          <!-- ภูเขาระยะไกล -->
+          <path d="M0,80 Q50,40 100,50 T200,60 T300,50 T400,70 L400,120 L0,120 Z" fill="#208272" opacity="0.6" />
+          <!-- ภูเขาระยะใกล้ -->
+          <path d="M-20,90 Q80,60 160,80 T280,70 T420,90 L420,120 L-20,120 Z" fill="#1b6056" opacity="0.7" />
+
+          <!-- ต้นสนใหญ่ด้านซ้าย -->
+          <g fill="#114a45" transform="translate(30, 45) scale(0.9)">
+            <use href="#pine" />
+          </g>
+          <g fill="#145650" transform="translate(75, 65) scale(0.65)">
+            <use href="#pine" />
+          </g>
+          <g fill="#0e3d39" transform="translate(-15, 60) scale(0.8)">
+            <use href="#pine" />
+          </g>
+
+          <!-- ต้นสนกลุ่มทางขวา -->
+          <g fill="#13524b" transform="translate(300, 30) scale(1.15)">
+            <use href="#pine" />
+          </g>
+          <g fill="#0c3c3a" transform="translate(345, 50) scale(0.9)">
+            <use href="#pine" />
+          </g>
+          <g fill="#082928" transform="translate(375, 70) scale(0.65)">
+            <use href="#pine" />
+          </g>
+        </svg>
       </div>
 
-      <button class="btn btn-primary-forest btn-lg w-100 mb-3 fw-bold" onclick="doLogin()">
-        <span class="material-icons align-middle me-1">login</span>เข้าสู่ระบบ
-      </button>
+      <div class="login-card-body">
+        <h5 class="fw-bold mb-4 form-wrapper-field" style="color: #256d68; letter-spacing: 1px;">เข้าสู่ระบบ</h5>
+
+        <div class="input-group pill-input-group form-wrapper-field">
+          <span class="input-group-text"><i class="material-icons">person</i></span>
+          <input id="uname" type="text" class="form-control" placeholder="ชื่อผู้ใช้งาน"
+            onkeydown="if(event.key==='Enter') doLogin()">
+        </div>
+
+        <div class="input-group pill-input-group form-wrapper-field">
+          <span class="input-group-text"><i class="material-icons">lock</i></span>
+          <input id="upass" type="password" class="form-control" placeholder="รหัสผ่าน"
+            onkeydown="if(event.key==='Enter') doLogin()">
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4 mt-3 form-wrapper-field">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="rememberMe"
+              style="cursor:pointer; border-color:#256d68;">
+            <label class="form-check-label text-muted small fw-bold" for="rememberMe"
+              style="color: #256d68 !important; cursor:pointer;">จดจำฉัน</label>
+          </div>
+          <a href="#" class="small fw-bold" style="color: #256d68; text-decoration: none;">ลืมรหัสผ่าน?</a>
+        </div>
+
+        <button class="btn btn-lg w-100 rounded-pill fw-bold btn-login-submit" style="background:#256d68; color:#fff;"
+          onclick="doLogin()">
+          เข้าสู่ระบบ
+        </button>
+      </div>
     </div>
   </div>
 
@@ -2620,7 +2726,7 @@
 
       document.getElementById('dash-daily-kpi').innerHTML =
         `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid var(--primary)"><div class="stat-num text-primary">${r.total}</div><div class="small fw-bold">บุคลากรทั้งหมด</div><div class="text-muted" style="font-size:11px;">ที่ระบุสถานะ</div></div></div>` +
-        `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #198754"><div class="stat-num text-success">${totalWorkWithLate}</div><div class="small fw-bold">มาทำงาน (W+LT)</div><div class="text-success fw-semibold" style="font-size:12px;">${attendRate}%</div></div></div>` +
+        `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #198754"><div class="stat-num text-success">${totalWorkWithLate}</div><div class="small fw-bold">มาทำงาน (W)</div><div class="text-success fw-semibold" style="font-size:12px;">${attendRate}%</div></div></div>` +
         `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #fd7e14"><div class="stat-num" style="color:#fd7e14">${r.summary.LT}</div><div class="small fw-bold">มาสาย (LT)</div><div class="text-muted" style="font-size:11px;">${ltRate}% ของทั้งหมด</div></div></div>` +
         `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #0dcaf0"><div class="stat-num text-info">${r.summary.OD}</div><div class="small fw-bold">ไปราชการ (OD)</div></div></div>` +
         `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #ffc107"><div class="stat-num" style="color:#b45309">${leaveCount}</div><div class="small fw-bold">ลาทุกประเภท</div><div class="text-muted" style="font-size:10.5px;">ป่วย ${r.summary.SL} · กิจ ${r.summary.PL} · พักผ่อน ${r.summary.VL}</div></div></div>` +
@@ -3664,7 +3770,10 @@
         formWrapper.style.pointerEvents = enabled ? '' : 'none';
       }
       var submitBtn = document.getElementById('btn-upload-submit');
-      if (submitBtn) submitBtn.disabled = !enabled;
+      if (submitBtn) {
+        submitBtn.disabled = !enabled;
+        submitBtn.style.display = enabled ? '' : 'none';
+      }
     }
 
     async function checkFormsDriveStatus() {
