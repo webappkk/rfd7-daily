@@ -2058,10 +2058,10 @@
                       <span class="material-icons" style="font-size:18px;">cloud_upload</span>
                       <span class="small fw-bold">รับอัปโหลด:</span>
                       <div class="form-check form-switch mb-0">
-                        <input class="form-check-input" type="checkbox" id="toggle-upload-enabled"
+                        <input class="form-check-input" type="checkbox" id="toggle-upload-enabled" checked
                           style="width:2.5em;height:1.3em;cursor:pointer;" onchange="toggleSectionUpload(this.checked)">
                       </div>
-                      <span id="toggle-upload-label" class="small fw-semibold" style="min-width:32px;">--</span>
+                      <span id="toggle-upload-label" class="small fw-semibold" style="min-width:32px;color:#4ade80;">เปิด</span>
                     </div>
                   </div>
                   <div id="btn-add-template-wrapper" style="display:none;">
@@ -2100,13 +2100,13 @@
                     </h5>
                   </div>
                   <div class="card-body p-3">
-                    <!-- Banner แจ้งปิดระบบ -->
-                    <div id="upload-disabled-banner" class="alert alert-danger d-flex align-items-center gap-2 mb-3"
-                      style="display:none !important; border-radius:12px;">
-                      <span class="material-icons" style="font-size:22px;">lock</span>
+                    <!-- Banner แจ้งสถานะระบบ -->
+                    <div id="upload-disabled-banner" class="alert alert-success d-flex align-items-center gap-2 mb-3 py-2"
+                      style="border-radius:12px;">
+                      <span class="material-icons text-success" style="font-size:22px;">check_circle</span>
                       <div>
-                        <strong>ระบบอัปโหลดปิดอยู่</strong>
-                        <div class="small mt-1">Super Admin ปิดการรับอัปโหลดเอกสารชั่วคราว กรุณาติดต่อผู้ดูแลระบบ</div>
+                        <strong class="text-success">ระบบอัปโหลดเปิดอยู่</strong>
+                        <div class="small text-muted mt-1">พร้อมรับการส่งแบบฟอร์มและเอกสารของส่วนงานตามปกติ</div>
                       </div>
                     </div>
                     <div id="upload-form-wrapper">
@@ -3075,8 +3075,36 @@
           cells += `<td><div class="attendance-cell ${st ? 'st-' + st : 'st-none'}" data-ri="${ri}" data-ds="${ds}" onclick="openCellEditor(this,${ri},'${ds}')" title="${cellTitle}"><span class="status-pill">${st || '-'}</span>${rmk ? `<span class="remark-indicator"></span>` : ''}</div></td>`;
         });
 
-        return `<tr data-ri="${ri}">${cells}<td class="fw-bold text-success bg-light">${r.totalWork ?? 0}</td><td class="bg-light">${r.totalOD ?? 0}</td><td class="bg-light">${r.totalSick ?? 0}</td><td class="bg-light">${r.totalPersonal ?? 0}</td><td class="bg-light">${r.totalVacation ?? 0}</td><td class="text-danger fw-bold bg-light">${r.totalAbsent ?? 0}</td><td class="bg-light" style="color:var(--color-LT-text);font-weight:700;">${r.totalLate ?? 0}</td></tr>`;
+        var totals = calcRowTotals(r, days, currentHolidays);
+        return `<tr data-ri="${ri}">${cells}<td class="fw-bold text-success bg-light">${totals.totalW}</td><td class="bg-light">${totals.counts.OD}</td><td class="bg-light">${totals.counts.SL}</td><td class="bg-light">${totals.counts.PL}</td><td class="bg-light">${totals.counts.VL}</td><td class="text-danger fw-bold bg-light">${totals.counts.AB}</td><td class="bg-light" style="color:var(--color-LT-text);font-weight:700;">${totals.counts.LT}</td></tr>`;
+
       }).join('');
+    }
+
+    // ========== Helper: คำนวณวันทำงาน (เรียกใช้ทุกครั้งที่ render/update) ==========
+    function calcRowTotals(empRow, days, holidays) {
+      var counts = { W: 0, OD: 0, SL: 0, PL: 0, VL: 0, AB: 0, LT: 0 };
+      var totalW = 0;
+      var todayDate = new Date();
+      todayDate.setHours(23, 59, 59, 999);
+      days.forEach(function(ds) {
+        var s = (empRow.days[ds] || {}).status || '';
+        if (counts.hasOwnProperty(s)) counts[s]++;
+        var dObj = new Date(ds);
+        var isWeekend = (dObj.getDay() === 0 || dObj.getDay() === 6);
+        var isHol = (holidays || []).indexOf(ds) >= 0;
+        if (s === 'SL' || s === 'PL' || s === 'VL' || s === 'AB') {
+          // ไม่นับเป็นวันทำงาน
+        } else {
+          if (s === 'W' || s === 'OD' || s === 'LT') {
+            totalW++;
+          } else if ((isWeekend || isHol) && dObj <= todayDate) {
+            // เสาร์/อาทิตย์/วันหยุดนักขัตฤกษ์ ที่ผ่านมาแล้ว นับเป็นวันทำงาน
+            totalW++;
+          }
+        }
+      });
+      return { totalW: totalW, counts: counts };
     }
 
     var currentEditRi = -1, currentEditDs = null, currentEditCell = null, selectedStatusVal = null;
@@ -3130,19 +3158,9 @@
       closePopoverEditor();
       var tr = document.querySelector(`tr[data-ri="${currentEditRi}"]`);
       if (tr) {
-        var counts = { W: 0, OD: 0, SL: 0, PL: 0, VL: 0, AB: 0, LT: 0 };
-        var weekendToAdd = 0;
-        currentDays.forEach(ds => {
-          var s = (currentDailyRows[currentEditRi].days[ds] || {}).status;
-          if (counts.hasOwnProperty(s)) counts[s]++;
-          var dObj = new Date(ds);
-          if ((dObj.getDay() === 0 || dObj.getDay() === 6) && (!s || s === '')) {
-            weekendToAdd++;
-          }
-        });
-        var totalW = counts.W + counts.LT + weekendToAdd;
+        var totals = calcRowTotals(currentDailyRows[currentEditRi], currentDays, currentHolidays);
         var sums = tr.querySelectorAll('td:nth-last-child(-n+7)');
-        [totalW, counts.OD, counts.SL, counts.PL, counts.VL, counts.AB, counts.LT].forEach((v, i) => sums[i].innerText = v);
+        [totals.totalW, totals.counts.OD, totals.counts.SL, totals.counts.PL, totals.counts.VL, totals.counts.AB, totals.counts.LT].forEach((v, i) => sums[i].innerText = v);
       }
     }
 
@@ -3714,11 +3732,14 @@
     async function loadSectionUploadStatus() {
       try {
         var r = await runApi('getSectionUploadEnabled', {});
-        if (r.success) {
-          __sectionUploadEnabled = r.enabled;
+        if (r && r.success) {
           applySectionUploadUI(r.enabled);
+        } else {
+          applySectionUploadUI(true);
         }
-      } catch (e) { /* ถ้าโหลดไม่ได้ ให้เปิดไว้ก่อน */ }
+      } catch (e) {
+        applySectionUploadUI(true);
+      }
     }
 
     async function toggleSectionUpload(enabled) {
@@ -3748,31 +3769,46 @@
     }
 
     function applySectionUploadUI(enabled) {
+      var isEnabled = (enabled === true || enabled === 'true');
+      __sectionUploadEnabled = isEnabled;
+
       // อัปเดต toggle switch
       var toggleInput = document.getElementById('toggle-upload-enabled');
-      if (toggleInput) toggleInput.checked = enabled;
+      if (toggleInput) toggleInput.checked = isEnabled;
 
       // อัปเดต label
       var labelEl = document.getElementById('toggle-upload-label');
       if (labelEl) {
-        labelEl.textContent = enabled ? 'เปิด' : 'ปิด';
-        labelEl.style.color = enabled ? '#4ade80' : '#f87171';
+        labelEl.textContent = isEnabled ? 'เปิด' : 'ปิด';
+        labelEl.style.color = isEnabled ? '#4ade80' : '#f87171';
       }
 
-      // แสดง/ซ่อน banner
+      // แสดง/อัปเดต banner สถานะอัปโหลด
       var banner = document.getElementById('upload-disabled-banner');
-      if (banner) banner.style.display = enabled ? 'none' : 'flex';
+      if (banner) {
+        if (isEnabled) {
+          banner.className = 'alert alert-success d-flex align-items-center gap-2 mb-3 py-2';
+          banner.style.borderRadius = '12px';
+          banner.innerHTML = '<span class="material-icons text-success" style="font-size:22px;">check_circle</span>' +
+            '<div><strong class="text-success">ระบบอัปโหลดเปิดอยู่</strong><div class="small text-muted mt-1">พร้อมรับการส่งแบบฟอร์มและเอกสารของส่วนงานตามปกติ</div></div>';
+        } else {
+          banner.className = 'alert alert-danger d-flex align-items-center gap-2 mb-3 py-2';
+          banner.style.borderRadius = '12px';
+          banner.innerHTML = '<span class="material-icons text-danger" style="font-size:22px;">lock</span>' +
+            '<div><strong class="text-danger">ระบบอัปโหลดปิดอยู่</strong><div class="small mt-1">Super Admin ปิดการรับอัปโหลดเอกสารชั่วคราว กรุณาติดต่อผู้ดูแลระบบ</div></div>';
+        }
+      }
 
       // แสดง/ซ่อน + disable ฟอร์ม
       var formWrapper = document.getElementById('upload-form-wrapper');
       if (formWrapper) {
-        formWrapper.style.opacity = enabled ? '1' : '0.45';
-        formWrapper.style.pointerEvents = enabled ? '' : 'none';
+        formWrapper.style.opacity = isEnabled ? '1' : '0.45';
+        formWrapper.style.pointerEvents = isEnabled ? '' : 'none';
       }
       var submitBtn = document.getElementById('btn-upload-submit');
       if (submitBtn) {
-        submitBtn.disabled = !enabled;
-        submitBtn.style.display = enabled ? '' : 'none';
+        submitBtn.disabled = !isEnabled;
+        submitBtn.style.display = isEnabled ? '' : 'none';
       }
     }
 
