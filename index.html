@@ -2751,14 +2751,18 @@
       var attendRate = r.total > 0 ? ((totalWorkWithLate / r.total) * 100).toFixed(1) : '0.0';
       var ltRate = r.total > 0 ? ((r.summary.LT / r.total) * 100).toFixed(1) : '0.0';
       var abRate = r.total > 0 ? ((r.summary.AB / r.total) * 100).toFixed(1) : '0.0';
+      var mlRate = r.total > 0 ? (((r.summary.ML || 0) / r.total) * 100).toFixed(1) : '0.0';
+      var olRate = r.total > 0 ? (((r.summary.OL || 0) / r.total) * 100).toFixed(1) : '0.0';
 
       document.getElementById('dash-daily-kpi').innerHTML =
-        `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid var(--primary)"><div class="stat-num text-primary">${r.total}</div><div class="small fw-bold">บุคลากรทั้งหมด</div><div class="text-muted" style="font-size:11px;">ที่ระบุสถานะ</div></div></div>` +
-        `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #198754"><div class="stat-num text-success">${totalWorkWithLate}</div><div class="small fw-bold">มาทำงาน (W)</div><div class="text-success fw-semibold" style="font-size:12px;">${attendRate}%</div></div></div>` +
-        `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #fd7e14"><div class="stat-num" style="color:#fd7e14">${r.summary.LT}</div><div class="small fw-bold">มาสาย (LT)</div><div class="text-muted" style="font-size:11px;">${ltRate}% ของทั้งหมด</div></div></div>` +
-        `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #0dcaf0"><div class="stat-num text-info">${r.summary.OD}</div><div class="small fw-bold">ไปราชการ (OD)</div></div></div>` +
-        `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #ffc107"><div class="stat-num" style="color:#b45309">${leaveCount}</div><div class="small fw-bold">ลาทุกประเภท</div><div class="text-muted" style="font-size:10.5px;">ป่วย ${r.summary.SL} · กิจ ${r.summary.PL} · พักผ่อน ${r.summary.VL}${(r.summary.ML ? ' · คลอด ' + r.summary.ML : '')}${(r.summary.OL ? ' · อื่นๆ ' + r.summary.OL : '')}</div></div></div>` +
-        `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #dc3545"><div class="stat-num text-danger">${r.summary.AB}</div><div class="small fw-bold">ขาดงาน (AB)</div><div class="text-danger fw-semibold" style="font-size:12px;">${abRate}%</div></div></div>`;
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid var(--primary)"><div class="stat-num text-primary">${r.total}</div><div class="small fw-bold">บุคลากรทั้งหมด</div><div class="text-muted" style="font-size:11px;">ที่ระบุสถานะ</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #198754"><div class="stat-num text-success">${totalWorkWithLate}</div><div class="small fw-bold">มาทำงาน (W)</div><div class="text-success fw-semibold" style="font-size:12px;">${attendRate}%</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #fd7e14"><div class="stat-num" style="color:#fd7e14">${r.summary.LT}</div><div class="small fw-bold">มาสาย (LT)</div><div class="text-muted" style="font-size:11px;">${ltRate}% ของทั้งหมด</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #0dcaf0"><div class="stat-num text-info">${r.summary.OD}</div><div class="small fw-bold">ไปราชการ (OD)</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #ffc107"><div class="stat-num" style="color:#b45309">${leaveCount}</div><div class="small fw-bold">ลาทุกประเภท</div><div class="text-muted" style="font-size:10.5px;">ป่วย ${r.summary.SL} · กิจ ${r.summary.PL} · พัก ${r.summary.VL}</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid var(--color-ML-text)"><div class="stat-num" style="color:var(--color-ML-text)">${r.summary.ML || 0}</div><div class="small fw-bold">ลาคลอดบุตร (ML)</div><div class="text-muted" style="font-size:11px;">${mlRate}% ของทั้งหมด</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid var(--color-OL-text)"><div class="stat-num" style="color:var(--color-OL-text)">${r.summary.OL || 0}</div><div class="small fw-bold">ลาประเภทอื่น ๆ (OL)</div><div class="text-muted" style="font-size:11px;">${olRate}% ของทั้งหมด</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #dc3545"><div class="stat-num text-danger">${r.summary.AB}</div><div class="small fw-bold">ขาดงาน (AB)</div><div class="text-danger fw-semibold" style="font-size:12px;">${abRate}%</div></div></div>`;
 
       var isMobile = window.innerWidth < 768;
       var minWidth = Math.max(isMobile ? 500 : 600, r.sectionStats.length * (isMobile ? 52 : 65));
@@ -2830,10 +2834,12 @@
       var t = r.totals;
       var totalWorkWithLate = t.W + t.LT;
       kEl.innerHTML =
-        `<div class="col-6 col-md-3 mb-2"><div class="summary-card"><div class="stat-num text-success">${totalWorkWithLate}</div><div class="small fw-bold">มาทำงาน (ครั้ง)</div></div></div>` +
-        `<div class="col-6 col-md-3 mb-2"><div class="summary-card"><div class="stat-num text-info">${t.OD}</div><div class="small fw-bold">ไปราชการ (ครั้ง)</div></div></div>` +
-        `<div class="col-6 col-md-3 mb-2"><div class="summary-card"><div class="stat-num text-warning">${t.LEAVE}</div><div class="small fw-bold">ลาทุกประเภท (ครั้ง)</div></div></div>` +
-        `<div class="col-6 col-md-3 mb-2"><div class="summary-card"><div class="stat-num text-danger">${t.AB}</div><div class="small fw-bold">ขาด (ครั้ง)</div></div></div>`;
+        `<div class="col-6 col-md-4 col-lg-2 mb-2"><div class="summary-card"><div class="stat-num text-success">${totalWorkWithLate}</div><div class="small fw-bold">มาทำงาน (ครั้ง)</div></div></div>` +
+        `<div class="col-6 col-md-4 col-lg-2 mb-2"><div class="summary-card"><div class="stat-num text-info">${t.OD}</div><div class="small fw-bold">ไปราชการ (ครั้ง)</div></div></div>` +
+        `<div class="col-6 col-md-4 col-lg-2 mb-2"><div class="summary-card"><div class="stat-num text-warning">${t.LEAVE}</div><div class="small fw-bold">ลาทุกประเภท (ครั้ง)</div></div></div>` +
+        `<div class="col-6 col-md-4 col-lg-2 mb-2"><div class="summary-card" style="border-top:3px solid var(--color-ML-text)"><div class="stat-num" style="color:var(--color-ML-text)">${t.ML || 0}</div><div class="small fw-bold">ลาคลอดบุตร (ครั้ง)</div></div></div>` +
+        `<div class="col-6 col-md-4 col-lg-2 mb-2"><div class="summary-card" style="border-top:3px solid var(--color-OL-text)"><div class="stat-num" style="color:var(--color-OL-text)">${t.OL || 0}</div><div class="small fw-bold">ลาประเภทอื่น ๆ (ครั้ง)</div></div></div>` +
+        `<div class="col-6 col-md-4 col-lg-2 mb-2"><div class="summary-card"><div class="stat-num text-danger">${t.AB}</div><div class="small fw-bold">ขาด (ครั้ง)</div></div></div>`;
 
       var labels = r.dayStats.map(function (d) { var dt = new Date(d.date); return dt.getDate() + '/' + (dt.getMonth() + 1); });
       var minWidth = Math.max(600, labels.length * 30);
@@ -2958,7 +2964,11 @@
         `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid var(--primary)"><div class="stat-num text-primary">${d.total}</div><div class="small fw-bold">บุคลากรทั้งหมด</div></div></div>` +
         `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #198754"><div class="stat-num text-success">${totalWorkWithLate}</div><div class="small fw-bold">มาทำงานวันนี้</div><div class="text-success fw-semibold" style="font-size:12px;">${attendRate}%</div></div></div>` +
         `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #0dcaf0"><div class="stat-num text-info">${d.summary.OD}</div><div class="small fw-bold">ไปราชการวันนี้</div></div></div>` +
-        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #ffc107"><div class="stat-num" style="color:#b45309">${leaveC}</div><div class="small fw-bold">ลาวันนี้</div><div class="text-danger" style="font-size:11px;">ขาด ${d.summary.AB} คน (${absentRate}%)</div></div></div>`;
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #ffc107"><div class="stat-num" style="color:#b45309">${leaveC}</div><div class="small fw-bold">ลาวันนี้</div><div class="text-muted" style="font-size:10.5px;">ป่วย ${d.summary.SL} · กิจ ${d.summary.PL} · พัก ${d.summary.VL}</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid var(--color-ML-text)"><div class="stat-num" style="color:var(--color-ML-text)">${d.summary.ML || 0}</div><div class="small fw-bold">ลาคลอดบุตร (ML)</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid var(--color-OL-text)"><div class="stat-num" style="color:var(--color-OL-text)">${d.summary.OL || 0}</div><div class="small fw-bold">ลาประเภทอื่น ๆ (OL)</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #fd7e14"><div class="stat-num" style="color:#fd7e14">${d.summary.LT || 0}</div><div class="small fw-bold">มาสายวันนี้ (LT)</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #dc3545"><div class="stat-num text-danger">${d.summary.AB || 0}</div><div class="small fw-bold">ขาดงานวันนี้ (AB)</div><div class="text-danger" style="font-size:11px;">${absentRate}%</div></div></div>`;
 
       var isMobile = window.innerWidth < 768;
       var minWidthDay = Math.max(isMobile ? 450 : 500, d.sectionStats.length * (isMobile ? 50 : 60));
@@ -3086,7 +3096,7 @@
         var isHol = currentHolidays.indexOf(ds) >= 0;
         h1 += `<th class="${ds === today ? 'today-col' : ''} ${isHol ? 'holiday-col' : ''}">` + d.getDate() + `<br><span style="font-size:10px">${['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.'][d.getDay()]}</span>${isHol ? '<br><span class="hol-lbl">🎌หยุด</span>' : ''}</th>`;
       });
-      ['ทำงาน', 'ไปราชการ', 'ป่วย', 'ลากิจ', 'พักผ่อน', 'ขาด', 'มาสาย'].forEach(s => h1 += `<th class="sum-col" style="font-size:11px;">${s}</th>`);
+      ['ทำงาน', 'ไปราชการ', 'ป่วย', 'ลากิจ', 'พักผ่อน', 'ลาคลอด', 'ลาอื่นๆ', 'ขาด', 'มาสาย'].forEach(s => h1 += `<th class="sum-col" style="font-size:11px;">${s}</th>`);
       thead.innerHTML = h1 + '</tr>';
 
       tbody.innerHTML = rows.map((r, ri) => {
@@ -3104,7 +3114,7 @@
         });
 
         var totals = calcRowTotals(r, days, currentHolidays);
-        return `<tr data-ri="${ri}">${cells}<td class="fw-bold text-success bg-light">${totals.totalW}</td><td class="bg-light">${totals.counts.OD}</td><td class="bg-light">${totals.counts.SL}</td><td class="bg-light">${totals.counts.PL}</td><td class="bg-light">${totals.counts.VL}</td><td class="text-danger fw-bold bg-light">${totals.counts.AB}</td><td class="bg-light" style="color:var(--color-LT-text);font-weight:700;">${totals.counts.LT}</td></tr>`;
+        return `<tr data-ri="${ri}">${cells}<td class="fw-bold text-success bg-light">${totals.totalW}</td><td class="bg-light">${totals.counts.OD}</td><td class="bg-light">${totals.counts.SL}</td><td class="bg-light">${totals.counts.PL}</td><td class="bg-light">${totals.counts.VL}</td><td class="bg-light" style="color:var(--color-ML-text);font-weight:600;">${totals.counts.ML}</td><td class="bg-light" style="color:var(--color-OL-text);font-weight:600;">${totals.counts.OL}</td><td class="text-danger fw-bold bg-light">${totals.counts.AB}</td><td class="bg-light" style="color:var(--color-LT-text);font-weight:700;">${totals.counts.LT}</td></tr>`;
 
       }).join('');
     }
@@ -3187,8 +3197,8 @@
       var tr = document.querySelector(`tr[data-ri="${currentEditRi}"]`);
       if (tr) {
         var totals = calcRowTotals(currentDailyRows[currentEditRi], currentDays, currentHolidays);
-        var sums = tr.querySelectorAll('td:nth-last-child(-n+7)');
-        [totals.totalW, totals.counts.OD, totals.counts.SL, totals.counts.PL, totals.counts.VL, totals.counts.AB, totals.counts.LT].forEach((v, i) => sums[i].innerText = v);
+        var sums = tr.querySelectorAll('td:nth-last-child(-n+9)');
+        [totals.totalW, totals.counts.OD, totals.counts.SL, totals.counts.PL, totals.counts.VL, totals.counts.ML, totals.counts.OL, totals.counts.AB, totals.counts.LT].forEach((v, i) => sums[i].innerText = v);
       }
     }
 
@@ -3294,9 +3304,9 @@
       <span class="text-muted" style="font-size:11px;">${escHtml(row.position)}</span>
     </td>
     <td><span class="section-badge">${escHtml(row.section)}</span></td>
-    <td class="text-success fw-bold">${row.totalWork}</td><td>${row.totalOD}</td><td>${row.totalSick}</td><td>${row.totalPersonal}</td><td>${row.totalVacation}</td><td class="text-danger fw-bold">${row.totalAbsent || '-'}</td></tr>`).join('');
+    <td class="text-success fw-bold">${row.totalWork}</td><td>${row.totalOD}</td><td>${row.totalSick}</td><td>${row.totalPersonal}</td><td>${row.totalVacation}</td><td style="color:var(--color-ML-text);font-weight:600;">${row.totalMaternity || 0}</td><td style="color:var(--color-OL-text);font-weight:600;">${row.totalOtherLeave || 0}</td><td class="text-danger fw-bold">${row.totalAbsent || '-'}</td></tr>`).join('');
 
-      p.innerHTML = `<div class="card border-0 mt-1"><div class="card-header-green">ตารางสรุปรายเดือน</div><div class="table-responsive"><table class="table table-hover table-custom mb-0"><thead><tr><th>ลำดับ</th><th class="text-start">ชื่อ - นามสกุล</th><th>ส่วนงาน</th><th>ทำงาน</th><th>ราชการ</th><th>ป่วย</th><th>ลากิจ</th><th>พักผ่อน</th><th>ขาด</th></tr></thead><tbody>${tbody}</tbody></table></div></div>`;
+      p.innerHTML = `<div class="card border-0 mt-1"><div class="card-header-green">ตารางสรุปรายเดือน</div><div class="table-responsive"><table class="table table-hover table-custom mb-0"><thead><tr><th>ลำดับ</th><th class="text-start">ชื่อ - นามสกุล</th><th>ส่วนงาน</th><th>ทำงาน</th><th>ราชการ</th><th>ป่วย</th><th>ลากิจ</th><th>พักผ่อน</th><th>ลาคลอด</th><th>ลาอื่นๆ</th><th>ขาด</th></tr></thead><tbody>${tbody}</tbody></table></div></div>`;
     }
 
     async function loadYearlySummary() {
@@ -3636,13 +3646,14 @@
 
       var header = ['ลำดับ', 'ชื่อ-นามสกุล', 'ตำแหน่ง', 'ส่วนงาน'];
       currentDays.forEach(d => header.push(d));
-      header.push('ทำงาน (W)', 'ราชการ (OD)', 'ป่วย (SL)', 'กิจ (PL)', 'พักผ่อน (VL)', 'ขาด (AB)', 'มาสาย (LT)');
+      header.push('ทำงาน (W)', 'ราชการ (OD)', 'ป่วย (SL)', 'กิจ (PL)', 'พักผ่อน (VL)', 'ลาคลอด (ML)', 'ลาอื่นๆ (OL)', 'ขาด (AB)', 'มาสาย (LT)');
       data.push(header);
 
       currentDailyRows.forEach((r, idx) => {
         var rowData = [r.seq || (idx + 1), r.firstName + ' ' + r.lastName, r.position, r.section];
         currentDays.forEach(d => { rowData.push((r.days[d] || {}).status || ''); });
-        rowData.push(r.totalWork || 0, r.totalOD || 0, r.totalSick || 0, r.totalPersonal || 0, r.totalVacation || 0, r.totalAbsent || 0, r.totalLate || 0);
+        var totals = calcRowTotals(r, currentDays, currentHolidays);
+        rowData.push(totals.totalW, totals.counts.OD, totals.counts.SL, totals.counts.PL, totals.counts.VL, totals.counts.ML, totals.counts.OL, totals.counts.AB, totals.counts.LT);
         data.push(rowData);
       });
 
@@ -3672,7 +3683,7 @@
       ['kharachakan', 'luksang', 'panakngan'].forEach(function (et) {
         var rows = cache[et];
         if (!rows || rows.length === 0) return;
-        var data = [['ลำดับ', 'ชื่อ - นามสกุล', 'ตำแหน่ง', 'ส่วนงาน', 'ทำงาน', 'ราชการ', 'ป่วย', 'ลากิจ', 'พักผ่อน', 'ขาด']];
+        var data = [['ลำดับ', 'ชื่อ - นามสกุล', 'ตำแหน่ง', 'ส่วนงาน', 'ทำงาน', 'ราชการ', 'ป่วย', 'ลากิจ', 'พักผ่อน', 'ลาคลอด', 'ลาอื่นๆ', 'ขาด']];
         rows.forEach(function (row, i) {
           data.push([
             i + 1,
@@ -3684,6 +3695,8 @@
             row.totalSick,
             row.totalPersonal,
             row.totalVacation,
+            row.totalMaternity || 0,
+            row.totalOtherLeave || 0,
             row.totalAbsent || '-'
           ]);
         });
