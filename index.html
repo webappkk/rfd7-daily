@@ -41,6 +41,10 @@
       --color-PL-text: #664d03;
       --color-VL: #e2d9f3;
       --color-VL-text: #432b68;
+      --color-ML: #fce7f3;
+      --color-ML-text: #9d174d;
+      --color-OL: #e2e8f0;
+      --color-OL-text: #334155;
       --color-AB: #f8ccd2;
       --color-AB-text: #a71d2a;
       --color-LT: #ffe5d0;
@@ -725,6 +729,16 @@
       color: var(--color-VL-text);
     }
 
+    .attendance-cell.st-ML {
+      background: var(--color-ML);
+      color: var(--color-ML-text);
+    }
+
+    .attendance-cell.st-OL {
+      background: var(--color-OL);
+      color: var(--color-OL-text);
+    }
+
     .attendance-cell.st-AB {
       background: var(--color-AB);
       color: var(--color-AB-text);
@@ -748,7 +762,7 @@
 
     .cell-popover-card {
       position: absolute;
-      width: 250px;
+      width: 270px;
       background: #ffffff;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -1159,6 +1173,16 @@
     .btn-st-VL {
       background: var(--color-VL);
       color: var(--color-VL-text);
+    }
+
+    .btn-st-ML {
+      background: var(--color-ML);
+      color: var(--color-ML-text);
+    }
+
+    .btn-st-OL {
+      background: var(--color-OL);
+      color: var(--color-OL-text);
     }
 
     .btn-st-AB {
@@ -1835,6 +1859,8 @@
                     <span class="badge" style="background:var(--color-SL);color:var(--color-SL-text)">SL=ลาป่วย</span>
                     <span class="badge" style="background:var(--color-PL);color:var(--color-PL-text)">PL=ลากิจ</span>
                     <span class="badge" style="background:var(--color-VL);color:var(--color-VL-text)">VL=พักผ่อน</span>
+                    <span class="badge" style="background:var(--color-ML);color:var(--color-ML-text)">ML=ลาคลอด</span>
+                    <span class="badge" style="background:var(--color-OL);color:var(--color-OL-text)">OL=ลาอื่นๆ</span>
                     <span class="badge" style="background:var(--color-AB);color:var(--color-AB-text)">AB=ขาด</span>
                     <span class="badge" style="background:var(--color-LT);color:var(--color-LT-text)">LT=มาสาย</span>
                   </div>
@@ -2448,6 +2474,8 @@
       <button class="status-opt-btn btn-st-SL" onclick="selectPopoverStatus('SL')" title="SL = ลาป่วย">SL</button>
       <button class="status-opt-btn btn-st-PL" onclick="selectPopoverStatus('PL')" title="PL = ลากิจ">PL</button>
       <button class="status-opt-btn btn-st-VL" onclick="selectPopoverStatus('VL')" title="VL = พักผ่อน">VL</button>
+      <button class="status-opt-btn btn-st-ML" onclick="selectPopoverStatus('ML')" title="ML = ลาคลอดบุตร">ML</button>
+      <button class="status-opt-btn btn-st-OL" onclick="selectPopoverStatus('OL')" title="OL = ลาประเภทอื่น ๆ">OL</button>
       <button class="status-opt-btn btn-st-AB" onclick="selectPopoverStatus('AB')" title="AB = ขาด">AB</button>
       <button class="status-opt-btn btn-st-LT" onclick="selectPopoverStatus('LT')" title="LT = มาสาย">LT</button>
       <button class="status-opt-btn btn-st-none" onclick="selectPopoverStatus('')" title="- = ยังไม่ระบุ">-</button>
@@ -2515,7 +2543,7 @@
     var EMP_TYPES = [{ id: 'kharachakan', label: 'ข้าราชการ' }, { id: 'luksang', label: 'ลูกจ้างประจำ' }, { id: 'panakngan', label: 'พนักงานราชการ' }];
     var TH_MONTHS = ['', 'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
 
-    var STATUS_DESC = { 'W': 'W = ทำงาน', 'OD': 'OD = ไปราชการ', 'SL': 'SL = ลาป่วย', 'PL': 'PL = ลากิจ', 'VL': 'VL = พักผ่อน', 'AB': 'AB = ขาด', 'LT': 'LT = มาสาย', '': '- = ยังไม่ระบุ' };
+    var STATUS_DESC = { 'W': 'W = ทำงาน', 'OD': 'OD = ไปราชการ', 'SL': 'SL = ลาป่วย', 'PL': 'PL = ลากิจ', 'VL': 'VL = พักผ่อน', 'ML': 'ML = ลาคลอดบุตร', 'OL': 'OL = ลาประเภทอื่น ๆ', 'AB': 'AB = ขาด', 'LT': 'LT = มาสาย', '': '- = ยังไม่ระบุ' };
 
     var today = (function () { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); })();
     var currentDailyRows = [], currentDays = [], currentHolidays = [];
@@ -2718,7 +2746,7 @@
     }
 
     function renderDashboardDaily(r) {
-      var leaveCount = r.summary.SL + r.summary.PL + r.summary.VL;
+      var leaveCount = r.summary.SL + r.summary.PL + r.summary.VL + (r.summary.ML || 0) + (r.summary.OL || 0);
       var totalWorkWithLate = r.summary.W + r.summary.LT;
       var attendRate = r.total > 0 ? ((totalWorkWithLate / r.total) * 100).toFixed(1) : '0.0';
       var ltRate = r.total > 0 ? ((r.summary.LT / r.total) * 100).toFixed(1) : '0.0';
@@ -2729,7 +2757,7 @@
         `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #198754"><div class="stat-num text-success">${totalWorkWithLate}</div><div class="small fw-bold">มาทำงาน (W)</div><div class="text-success fw-semibold" style="font-size:12px;">${attendRate}%</div></div></div>` +
         `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #fd7e14"><div class="stat-num" style="color:#fd7e14">${r.summary.LT}</div><div class="small fw-bold">มาสาย (LT)</div><div class="text-muted" style="font-size:11px;">${ltRate}% ของทั้งหมด</div></div></div>` +
         `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #0dcaf0"><div class="stat-num text-info">${r.summary.OD}</div><div class="small fw-bold">ไปราชการ (OD)</div></div></div>` +
-        `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #ffc107"><div class="stat-num" style="color:#b45309">${leaveCount}</div><div class="small fw-bold">ลาทุกประเภท</div><div class="text-muted" style="font-size:10.5px;">ป่วย ${r.summary.SL} · กิจ ${r.summary.PL} · พักผ่อน ${r.summary.VL}</div></div></div>` +
+        `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #ffc107"><div class="stat-num" style="color:#b45309">${leaveCount}</div><div class="small fw-bold">ลาทุกประเภท</div><div class="text-muted" style="font-size:10.5px;">ป่วย ${r.summary.SL} · กิจ ${r.summary.PL} · พักผ่อน ${r.summary.VL}${(r.summary.ML ? ' · คลอด ' + r.summary.ML : '')}${(r.summary.OL ? ' · อื่นๆ ' + r.summary.OL : '')}</div></div></div>` +
         `<div class="col-6 col-md-2 mb-2"><div class="summary-card" style="border-top:3px solid #dc3545"><div class="stat-num text-danger">${r.summary.AB}</div><div class="small fw-bold">ขาดงาน (AB)</div><div class="text-danger fw-semibold" style="font-size:12px;">${abRate}%</div></div></div>`;
 
       var isMobile = window.innerWidth < 768;
@@ -2919,7 +2947,7 @@
 
     function tryRenderOverview(ovData) {
       if (!ovData.daily || !ovData.monthly) return;
-      var d = ovData.daily, leaveC = d.summary.SL + d.summary.PL + d.summary.VL;
+      var d = ovData.daily, leaveC = d.summary.SL + d.summary.PL + d.summary.VL + (d.summary.ML || 0) + (d.summary.OL || 0);
       var totalWorkWithLate = d.summary.W + d.summary.LT;
       var attendRate = d.total > 0 ? ((totalWorkWithLate / d.total) * 100).toFixed(1) : '0.0';
       var absentRate = d.total > 0 ? ((d.summary.AB / d.total) * 100).toFixed(1) : '0.0';
@@ -3083,7 +3111,7 @@
 
     // ========== Helper: คำนวณวันทำงาน (เรียกใช้ทุกครั้งที่ render/update) ==========
     function calcRowTotals(empRow, days, holidays) {
-      var counts = { W: 0, OD: 0, SL: 0, PL: 0, VL: 0, AB: 0, LT: 0 };
+      var counts = { W: 0, OD: 0, SL: 0, PL: 0, VL: 0, ML: 0, OL: 0, AB: 0, LT: 0 };
       var totalW = 0;
       var todayDate = new Date();
       todayDate.setHours(23, 59, 59, 999);
@@ -3093,7 +3121,7 @@
         var dObj = new Date(ds);
         var isWeekend = (dObj.getDay() === 0 || dObj.getDay() === 6);
         var isHol = (holidays || []).indexOf(ds) >= 0;
-        if (s === 'SL' || s === 'PL' || s === 'VL' || s === 'AB') {
+        if (s === 'SL' || s === 'PL' || s === 'VL' || s === 'ML' || s === 'OL' || s === 'AB') {
           // ไม่นับเป็นวันทำงาน
         } else {
           if (s === 'W' || s === 'OD' || s === 'LT') {
@@ -3223,7 +3251,7 @@
         bySec[sec].push({ fn: row.firstName, ln: row.lastName, pos: row.position, st: e.status || '', rmk: e.remark || '' });
       });
 
-      var stColors = { 'W': '<span class="badge" style="background:var(--color-W);color:var(--color-W-text)">ทำงาน (W)</span>', 'OD': '<span class="badge" style="background:var(--color-OD);color:var(--color-OD-text)">ไปราชการ (OD)</span>', 'SL': '<span class="badge" style="background:var(--color-SL);color:var(--color-SL-text)">ลาป่วย (SL)</span>', 'PL': '<span class="badge" style="background:var(--color-PL);color:var(--color-PL-text)">ลากิจ (PL)</span>', 'VL': '<span class="badge" style="background:var(--color-VL);color:var(--color-VL-text)">พักผ่อน (VL)</span>', 'AB': '<span class="badge bg-danger">ขาด (AB)</span>', 'LT': '<span class="badge bg-warning text-dark">มาสาย (LT)</span>', '': '<span class="badge bg-light text-muted border">-</span>' };
+      var stColors = { 'W': '<span class="badge" style="background:var(--color-W);color:var(--color-W-text)">ทำงาน (W)</span>', 'OD': '<span class="badge" style="background:var(--color-OD);color:var(--color-OD-text)">ไปราชการ (OD)</span>', 'SL': '<span class="badge" style="background:var(--color-SL);color:var(--color-SL-text)">ลาป่วย (SL)</span>', 'PL': '<span class="badge" style="background:var(--color-PL);color:var(--color-PL-text)">ลากิจ (PL)</span>', 'VL': '<span class="badge" style="background:var(--color-VL);color:var(--color-VL-text)">พักผ่อน (VL)</span>', 'ML': '<span class="badge" style="background:var(--color-ML);color:var(--color-ML-text)">ลาคลอดบุตร (ML)</span>', 'OL': '<span class="badge" style="background:var(--color-OL);color:var(--color-OL-text)">ลาประเภทอื่น ๆ (OL)</span>', 'AB': '<span class="badge bg-danger">ขาด (AB)</span>', 'LT': '<span class="badge bg-warning text-dark">มาสาย (LT)</span>', '': '<span class="badge bg-light text-muted border">-</span>' };
 
       var html = `<div class="card"><div class="card-header-green">ตารางสรุปสถานะรายบุคคล ณ วันที่ ${dateStr}</div><div class="table-responsive"><table class="table table-hover mb-0">`;
       Object.keys(bySec).sort().forEach(sec => {
