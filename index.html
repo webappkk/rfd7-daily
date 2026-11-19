@@ -59,6 +59,8 @@
       color: var(--dark-text);
       margin: 0;
       -webkit-tap-highlight-color: transparent;
+      max-width: 100vw;
+      overflow-x: hidden;
     }
 
     .login-bg {
@@ -375,6 +377,7 @@
       border-radius: 20px;
       box-shadow: 0 8px 24px rgba(10, 64, 35, 0.03);
       margin-bottom: 24px;
+      max-width: 100%;
       transition: box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -396,6 +399,9 @@
       display: flex;
       min-height: 100vh;
       padding-bottom: 0;
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
     }
 
     .sidebar {
@@ -530,6 +536,9 @@
       margin-left: var(--sidebar-width);
       flex-grow: 1;
       min-height: 100vh;
+      min-width: 0;
+      width: calc(100% - var(--sidebar-width));
+      max-width: calc(100% - var(--sidebar-width));
       display: flex;
       flex-direction: column;
       transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -560,21 +569,35 @@
     .content-body {
       padding: 28px;
       flex-grow: 1;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .tab-content,
+    .tab-pane {
+      min-width: 0;
+      max-width: 100%;
     }
 
     /* ===== ตารางบันทึกรายวัน & STICKY COLUMNS ที่ปรับปรุงใหม่ ===== */
+    #daily-table-wrap,
     .table-wrap {
-      overflow-x: auto;
-      max-height: 68vh;
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto !important;
+      overflow-y: auto !important;
+      max-height: 70vh;
       border-radius: 0 0 20px 20px;
       -webkit-overflow-scrolling: touch;
     }
 
     .table-daily {
       font-size: 12.5px;
-      border-collapse: separate;
-      border-spacing: 0;
-      min-width: max-content;
+      border-collapse: separate !important;
+      border-spacing: 0 !important;
+      width: max-content;
+      min-width: 100%;
       margin-bottom: 0;
     }
 
@@ -599,30 +622,31 @@
       background: #ffffff;
     }
 
-    /* ตรึงคอลัมน์ให้อยู่กับที่ (ซ้าย) แบบเป๊ะๆ สำหรับทุกหน้าจอ - ขยายให้พอดีกับข้อมูล */
+    /* ตรึงคอลัมน์ให้อยู่กับที่ (ซ้าย) แบบเป๊ะๆ สำหรับทุกหน้าจอ: ลำดับ, ชื่อ-สกุล, ส่วน */
     .col-seq {
       position: -webkit-sticky !important;
       position: sticky !important;
       left: 0 !important;
-      width: 64px;
-      min-width: 64px;
-      max-width: 64px;
-      z-index: 5;
-      background-color: #ffffff;
+      width: 60px !important;
+      min-width: 60px !important;
+      max-width: 60px !important;
+      z-index: 12 !important;
+      background-color: #ffffff !important;
       box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.05);
       white-space: nowrap;
+      text-align: center !important;
       transition: background-color 0.2s ease;
     }
 
     .col-name {
       position: -webkit-sticky !important;
       position: sticky !important;
-      left: 64px !important;
-      width: 210px;
-      min-width: 210px;
-      max-width: 210px;
-      z-index: 5;
-      background-color: #ffffff;
+      left: 60px !important;
+      width: 220px !important;
+      min-width: 220px !important;
+      max-width: 220px !important;
+      z-index: 12 !important;
+      background-color: #ffffff !important;
       box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.05);
       white-space: normal;
       line-height: 1.25;
@@ -633,20 +657,19 @@
     .col-sec {
       position: -webkit-sticky !important;
       position: sticky !important;
-      left: 274px !important;
-      width: 150px;
-      min-width: 150px;
-      max-width: 150px;
-      z-index: 5;
-      background-color: #ffffff;
-      border-right: 2px solid rgba(10, 64, 35, 0.15);
+      left: 280px !important;
+      width: 150px !important;
+      min-width: 150px !important;
+      max-width: 150px !important;
+      z-index: 12 !important;
+      background-color: #ffffff !important;
+      border-right: 2px solid rgba(10, 64, 35, 0.20) !important;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.08) !important;
       white-space: normal;
       line-height: 1.25;
       text-align: left !important;
       transition: background-color 0.2s ease;
     }
-
-
 
     /* ทับซ้อน (Intersection) ของด้านบนสุดและด้านซ้ายสุด ให้อยู่เลเยอร์บนสุด */
     .table-daily thead th.col-seq,
@@ -654,16 +677,39 @@
     .table-daily thead th.col-sec {
       position: -webkit-sticky !important;
       position: sticky !important;
-      z-index: 15 !important;
+      top: 0 !important;
+      z-index: 25 !important;
       background-color: #f8faf9 !important;
       white-space: nowrap;
+    }
+
+    .table-daily thead th.col-seq {
+      left: 0 !important;
+      width: 60px !important;
+      min-width: 60px !important;
+      max-width: 60px !important;
+      text-align: center !important;
+      padding-left: 8px !important;
+    }
+
+    .table-daily thead th.col-name {
+      left: 60px !important;
+      width: 220px !important;
+      min-width: 220px !important;
+      max-width: 220px !important;
       text-align: left !important;
       padding-left: 12px !important;
     }
 
-    .table-daily thead th.col-seq {
-      text-align: center !important;
-      padding-left: 8px !important;
+    .table-daily thead th.col-sec {
+      left: 280px !important;
+      width: 150px !important;
+      min-width: 150px !important;
+      max-width: 150px !important;
+      text-align: left !important;
+      padding-left: 12px !important;
+      border-right: 2px solid rgba(10, 64, 35, 0.20) !important;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.08) !important;
     }
 
     /* เพื่อให้ Hover บนคอลัมน์ที่ตรึงมีสีตาม Row ไปด้วย */
@@ -1045,7 +1091,10 @@
       }
 
       .main-content {
-        margin-left: 0;
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        min-width: 0 !important;
       }
 
       .top-header {
@@ -1212,35 +1261,10 @@
     }
 
     /* ===== STICKY COLUMNS ENHANCEMENT ===== */
-    /* เพิ่ม z-index เพื่อให้คอลัมน์ตรึงอยู่เหนือ attendance-cell:hover */
-    .col-seq,
-    .col-name,
-    .col-sec {
-      z-index: 7 !important;
-    }
-
-    .table-daily thead th.col-seq,
-    .table-daily thead th.col-name,
-    .table-daily thead th.col-sec {
-      z-index: 17 !important;
-      background-color: #f8faf9 !important;
-    }
-
-    /* เส้นแบ่งที่ชัดเจนหลังคอลัมน์ส่วน */
-    .col-sec {
-      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.10) !important;
-      border-right: 3px solid rgba(10, 64, 35, 0.25) !important;
-    }
-
-    .table-daily thead th.col-sec {
-      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.10) !important;
-    }
-
-    /* Ensure backgrounds on frozen cells override any inherited values */
-    .table-daily tbody td.col-seq,
-    .table-daily tbody td.col-name,
+    .table-daily thead th.col-sec,
     .table-daily tbody td.col-sec {
-      background-color: #ffffff;
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.12) !important;
+      border-right: 3px solid rgba(10, 64, 35, 0.28) !important;
     }
 
     .table-daily tbody tr:hover td.col-seq,
@@ -1274,24 +1298,25 @@
     }
 
     /* ===== ตารางบันทึกรายวันบนมือถือ: ย่อคอลัมน์ตรึง (ลำดับ/ชื่อ/ส่วน) ======
-       เดิมคอลัมน์ตรึงทั้ง 3 กว้างรวมกัน 424px ซึ่งกว้างกว่าจอมือถือทั่วไป (~360-430px)
-       ทำให้ผู้ใช้ต้องเลื่อนจอผ่านคอลัมน์ตรึงทั้งหมดก่อนถึงจะเห็นข้อมูลสถานะวันแรกเลย
-       จึงย่อขนาดคอลัมน์ตรึงบนจอเล็กลง เพื่อให้เห็นข้อมูลจริงได้ทันทีโดยไม่บังทั้งจอ */
+       ตรึงตำแหน่งทั้ง thead th และ tbody td ให้ตรงกันเป๊ะ */
     @media (max-width: 767.98px) {
-      .col-seq {
-        width: 34px !important;
-        min-width: 34px !important;
-        max-width: 34px !important;
+      .col-seq,
+      .table-daily thead th.col-seq {
+        left: 0 !important;
+        width: 36px !important;
+        min-width: 36px !important;
+        max-width: 36px !important;
         padding-left: 4px !important;
         padding-right: 2px !important;
         font-size: 11px;
       }
 
-      .col-name {
-        left: 34px !important;
-        width: 122px !important;
-        min-width: 122px !important;
-        max-width: 122px !important;
+      .col-name,
+      .table-daily thead th.col-name {
+        left: 36px !important;
+        width: 124px !important;
+        min-width: 124px !important;
+        max-width: 124px !important;
         padding-left: 6px !important;
         font-size: 11.5px;
       }
@@ -1302,11 +1327,12 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
-        max-width: 116px;
+        max-width: 118px;
       }
 
-      .col-sec {
-        left: 156px !important;
+      .col-sec,
+      .table-daily thead th.col-sec {
+        left: 160px !important;
         width: 88px !important;
         min-width: 88px !important;
         max-width: 88px !important;
@@ -1346,20 +1372,24 @@
 
     /* จอแคบมากเป็นพิเศษ (มือถือจอเล็ก) ย่อเพิ่มอีกนิดเพื่อเผื่อพื้นที่ให้เห็นคอลัมน์วันจริง */
     @media (max-width: 359.98px) {
-      .col-seq {
+      .col-seq,
+      .table-daily thead th.col-seq {
+        left: 0 !important;
         width: 28px !important;
         min-width: 28px !important;
         max-width: 28px !important;
       }
 
-      .col-name {
+      .col-name,
+      .table-daily thead th.col-name {
         left: 28px !important;
         width: 104px !important;
         min-width: 104px !important;
         max-width: 104px !important;
       }
 
-      .col-sec {
+      .col-sec,
+      .table-daily thead th.col-sec {
         left: 132px !important;
         width: 72px !important;
         min-width: 72px !important;
@@ -1868,7 +1898,7 @@
                     oninput="filterDailyTable(this.value)" style="max-width:220px;">
                 </div>
               </div>
-              <div class="table-wrap">
+              <div class="table-wrap" id="daily-table-wrap">
                 <table class="table table-daily mb-0" id="daily-table">
                   <thead id="daily-thead"></thead>
                   <tbody id="daily-tbody"></tbody>
@@ -2746,8 +2776,17 @@
     }
 
     function renderDashboardDaily(r) {
+      if (r.sectionStats) {
+        r.sectionStats.forEach(function (s) {
+          var rec = (s.W || 0) + (s.OD || 0) + (s.LT || 0) + (s.AB || 0) + (s.LEAVE || 0);
+          s.NONE = Math.max(0, (s.total || 0) - rec);
+        });
+      }
       var leaveCount = r.summary.SL + r.summary.PL + r.summary.VL + (r.summary.ML || 0) + (r.summary.OL || 0);
       var totalWorkWithLate = r.summary.W + r.summary.LT;
+      var recordedTotal = (r.summary.W || 0) + (r.summary.OD || 0) + (r.summary.LT || 0) + (r.summary.AB || 0) + leaveCount;
+      var notEnteredTotal = Math.max(0, r.total - recordedTotal);
+      var notEnteredRate = r.total > 0 ? ((notEnteredTotal / r.total) * 100).toFixed(1) : '0.0';
       var attendRate = r.total > 0 ? ((totalWorkWithLate / r.total) * 100).toFixed(1) : '0.0';
       var ltRate = r.total > 0 ? ((r.summary.LT / r.total) * 100).toFixed(1) : '0.0';
       var abRate = r.total > 0 ? ((r.summary.AB / r.total) * 100).toFixed(1) : '0.0';
@@ -2762,7 +2801,8 @@
         `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #ffc107"><div class="stat-num" style="color:#b45309">${leaveCount}</div><div class="small fw-bold">ลาทุกประเภท</div><div class="text-muted" style="font-size:10.5px;">ป่วย ${r.summary.SL} · กิจ ${r.summary.PL} · พัก ${r.summary.VL}</div></div></div>` +
         `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid var(--color-ML-text)"><div class="stat-num" style="color:var(--color-ML-text)">${r.summary.ML || 0}</div><div class="small fw-bold">ลาคลอดบุตร (ML)</div><div class="text-muted" style="font-size:11px;">${mlRate}% ของทั้งหมด</div></div></div>` +
         `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid var(--color-OL-text)"><div class="stat-num" style="color:var(--color-OL-text)">${r.summary.OL || 0}</div><div class="small fw-bold">ลาประเภทอื่น ๆ (OL)</div><div class="text-muted" style="font-size:11px;">${olRate}% ของทั้งหมด</div></div></div>` +
-        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #dc3545"><div class="stat-num text-danger">${r.summary.AB}</div><div class="small fw-bold">ขาดงาน (AB)</div><div class="text-danger fw-semibold" style="font-size:12px;">${abRate}%</div></div></div>`;
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #dc3545"><div class="stat-num text-danger">${r.summary.AB}</div><div class="small fw-bold">ขาดงาน (AB)</div><div class="text-danger fw-semibold" style="font-size:12px;">${abRate}%</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #6c757d"><div class="stat-num text-secondary">${notEnteredTotal}</div><div class="small fw-bold">ยังไม่ลงข้อมูล</div><div class="text-muted" style="font-size:11px;">${notEnteredRate}% ของทั้งหมด</div></div></div>`;
 
       var isMobile = window.innerWidth < 768;
       var minWidth = Math.max(isMobile ? 500 : 600, r.sectionStats.length * (isMobile ? 52 : 65));
@@ -2953,8 +2993,18 @@
 
     function tryRenderOverview(ovData) {
       if (!ovData.daily || !ovData.monthly) return;
-      var d = ovData.daily, leaveC = d.summary.SL + d.summary.PL + d.summary.VL + (d.summary.ML || 0) + (d.summary.OL || 0);
+      var d = ovData.daily;
+      if (d.sectionStats) {
+        d.sectionStats.forEach(function (s) {
+          var rec = (s.W || 0) + (s.OD || 0) + (s.LT || 0) + (s.AB || 0) + (s.LEAVE || 0);
+          s.NONE = Math.max(0, (s.total || 0) - rec);
+        });
+      }
+      var leaveC = d.summary.SL + d.summary.PL + d.summary.VL + (d.summary.ML || 0) + (d.summary.OL || 0);
       var totalWorkWithLate = d.summary.W + d.summary.LT;
+      var recordedTotal = (d.summary.W || 0) + (d.summary.OD || 0) + (d.summary.LT || 0) + (d.summary.AB || 0) + leaveC;
+      var notEnteredTotal = Math.max(0, d.total - recordedTotal);
+      var notEnteredRate = d.total > 0 ? ((notEnteredTotal / d.total) * 100).toFixed(1) : '0.0';
       var attendRate = d.total > 0 ? ((totalWorkWithLate / d.total) * 100).toFixed(1) : '0.0';
       var absentRate = d.total > 0 ? ((d.summary.AB / d.total) * 100).toFixed(1) : '0.0';
       var dateDisplay = new Date(today).toLocaleDateString('th-TH', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
@@ -2968,7 +3018,8 @@
         `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid var(--color-ML-text)"><div class="stat-num" style="color:var(--color-ML-text)">${d.summary.ML || 0}</div><div class="small fw-bold">ลาคลอดบุตร (ML)</div></div></div>` +
         `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid var(--color-OL-text)"><div class="stat-num" style="color:var(--color-OL-text)">${d.summary.OL || 0}</div><div class="small fw-bold">ลาประเภทอื่น ๆ (OL)</div></div></div>` +
         `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #fd7e14"><div class="stat-num" style="color:#fd7e14">${d.summary.LT || 0}</div><div class="small fw-bold">มาสายวันนี้ (LT)</div></div></div>` +
-        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #dc3545"><div class="stat-num text-danger">${d.summary.AB || 0}</div><div class="small fw-bold">ขาดงานวันนี้ (AB)</div><div class="text-danger" style="font-size:11px;">${absentRate}%</div></div></div>`;
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #dc3545"><div class="stat-num text-danger">${d.summary.AB || 0}</div><div class="small fw-bold">ขาดงานวันนี้ (AB)</div><div class="text-danger" style="font-size:11px;">${absentRate}%</div></div></div>` +
+        `<div class="col-6 col-md-3 mb-2"><div class="summary-card" style="border-top:3px solid #6c757d"><div class="stat-num text-secondary">${notEnteredTotal}</div><div class="small fw-bold">ยังไม่ลงข้อมูล</div><div class="text-muted" style="font-size:11px;">${notEnteredRate}% ของทั้งหมด</div></div></div>`;
 
       var isMobile = window.innerWidth < 768;
       var minWidthDay = Math.max(isMobile ? 450 : 500, d.sectionStats.length * (isMobile ? 50 : 60));
@@ -2985,7 +3036,8 @@
             { label: 'มาสาย', data: d.sectionStats.map(s => s.LT), backgroundColor: '#fd7e14' },
             { label: 'ไปราชการ', data: d.sectionStats.map(s => s.OD), backgroundColor: '#0dcaf0' },
             { label: 'ลา', data: d.sectionStats.map(s => s.LEAVE), backgroundColor: '#ffc107' },
-            { label: 'ขาด', data: d.sectionStats.map(s => s.AB), backgroundColor: '#dc3545' }
+            { label: 'ขาด', data: d.sectionStats.map(s => s.AB), backgroundColor: '#dc3545' },
+            { label: 'ยังไม่ลงข้อมูล', data: d.sectionStats.map(s => s.NONE), backgroundColor: '#ced4da' }
           ]
         },
         options: {
